@@ -9,3 +9,7 @@ DATABASE_URL = subprocess.Popen("heroku config:get DATABASE_URL -a jocampo-alten
                                 stderr=subprocess.PIPE).communicate()[0]
 
 os.environ["DATABASE_URL"] = DATABASE_URL.decode("utf-8")
+
+
+class Config:
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
