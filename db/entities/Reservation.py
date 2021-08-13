@@ -4,11 +4,34 @@ from db.entities import Base
 
 
 class Reservation(Base):
-    Column("room_id", BigInteger,
-           ForeignKey('room.id', name="fk_room_id", onupdate="RESTRICT", ondelete="RESTRICT"), nullable=False),
-    Column("guest_id", BigInteger,
-           ForeignKey('guest.id', name="fk_guest_id", onupdate="RESTRICT", ondelete="RESTRICT"), nullable=False),
-    Column("start_date", DateTime(timezone=True), nullable=False),
-    Column("end_date", DateTime(timezone=True), nullable=False),
-    Column("amount_of_guests", Integer),
-    Column("status", Enum("SCHEDULED", " CANCELED", name="reservation_status_type"), nullable=False, default="SCHEDULED"),
+    room_id = Column("room_id",
+                     BigInteger,
+                     ForeignKey(
+                         'room.id',
+                         name="fk_room_id",
+                         onupdate="RESTRICT",
+                         ondelete="RESTRICT"),
+                     nullable=False)
+
+    guest_id = Column("guest_id",
+                      BigInteger,
+                      ForeignKey(
+                          'guest.id',
+                          name="fk_guest_id",
+                          onupdate="RESTRICT",
+                          ondelete="RESTRICT"),
+                      nullable=False)
+
+    start_date = Column("start_date", DateTime(timezone=True), nullable=False)
+
+    end_date = Column("end_date", DateTime(timezone=True), nullable=False)
+
+    amount_of_guests = Column("amount_of_guests", Integer)
+
+    status = Column("status",
+                    Enum(
+                        "SCHEDULED",
+                        " CANCELED",
+                        name="reservation_status_type"),
+                    nullable=False,
+                    default="SCHEDULED")
