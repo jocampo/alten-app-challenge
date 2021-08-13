@@ -2,13 +2,106 @@ from sqlalchemy import Column, String, Boolean
 
 from db.entities import Base
 
+from sqlalchemy.ext.hybrid import hybrid_property
+
 
 class Guest(Base):
-    document = Column("document", String, nullable=False)
+    """
+    Guest SQLAlchemy entity
+    """
+    def __init__(self, document: str, first_name: str, last_name: str, is_active: bool = True):
+        """
+        Constructor for the Guest SQLAlchemy entity
+        """
+        assert isinstance(document, str)
+        assert document
+        assert isinstance(first_name, str)
+        assert first_name
+        assert isinstance(last_name, str)
+        assert last_name
+        assert isinstance(is_active, bool)
 
-    first_name = Column("first_name", String, nullable=False)
+        self.__document = document
+        self.__first_name = first_name
+        self.__last_name = last_name
+        self.__is_active = is_active
 
-    last_name = Column("last_name", String, nullable=False)
+    @hybrid_property
+    def document(self) -> str:
+        """
+        Document Number (i.e. national ID or passport) of the guest
+        :return: string representation of the guest's Document Number
+        """
+        return self.__document
 
-    is_active = Column("is_active", Boolean, nullable=False, default=True)
+    @document.setter
+    def document(self, document: str):
+        """
+        Sets the Document Number (i.e. national ID or passport) for the guest
+        :param document: Document Number (i.e. national ID or passport) of the guest
+        """
+        assert isinstance(document, str)
+        assert document
+        self.__document = document
+
+    @hybrid_property
+    def first_name(self) -> str:
+        """
+        First name of the guest
+        :return: first name of the guest as a string
+        """
+        return self.__first_name
+
+    @first_name.setter
+    def first_name(self, first_name: str):
+        """
+        Sets the first name for the guest
+        :param first_name: first name of the guest
+        """
+        assert isinstance(first_name, str)
+        assert first_name
+        self.__first_name = first_name
+
+    @hybrid_property
+    def last_name(self) -> str:
+        """
+        Last name of the guest
+        :return: last name of the guest as a string
+        """
+        return self.__last_name
+
+    @last_name.setter
+    def last_name(self, last_name: str):
+        """
+        Sets the last name for the guest
+        :param last_name: last name of the guest
+        """
+        assert isinstance(last_name, str)
+        assert last_name
+        self.__last_name = last_name
+
+    @hybrid_property
+    def is_active(self) -> bool:
+        """
+        Indicates if the guest is active or not
+        :return: boolean indicating the status of the guest
+        """
+        return self.__is_active
+
+    @is_active.setter
+    def is_active(self, is_active: bool):
+        """
+        Sets whether a guest is active or not
+        :param is_active: a boolean indicating if the guest entity is active or not
+        """
+        assert isinstance(is_active, bool)
+        self.__is_active = is_active
+
+    __document = Column("document", String, nullable=False)
+
+    __first_name = Column("first_name", String, nullable=False)
+
+    __last_name = Column("last_name", String, nullable=False)
+
+    __is_active = Column("is_active", Boolean, nullable=False, default=True)
 
