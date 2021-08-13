@@ -10,9 +10,9 @@ class AbstractDAO(ABC):
     Base class for DAOs. Needs to be extended for more complex handling of objects in the DB
     """
     @staticmethod
-    def create(entity):
+    def save(entity):
         """
-        Generic implementation for the create operation of a given entity
+        Generic implementation to save a given entity. Useful for creates/updates
         :param entity: SQLAlchemy entity
         """
         assert entity
