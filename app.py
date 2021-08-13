@@ -25,6 +25,7 @@ heroku = Heroku(app)
 CORS(app, support_credentials=True)
 
 connection_manager = ConnectionManager(db_url)
+session = flask_scoped_session(connection_manager.get_session_factory(), app)
 
 
 @app.route('/')
