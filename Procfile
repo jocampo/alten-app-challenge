@@ -1,2 +1,2 @@
-web: gunicorn application:app
+web: gunicorn app:app
 release: alembic upgrade head
