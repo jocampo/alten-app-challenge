@@ -11,6 +11,26 @@ class Reservation(Base):
     """
     Reservation SQLAlchemy entity
     """
+
+    def __init__(self, room_id: int, guest_id: int, start_date: datetime, end_date: datetime, amount_of_guests: int,
+                 status: ReservationStatus):
+        assert isinstance(room_id, int)
+        assert room_id > 0
+        assert isinstance(guest_id, int)
+        assert guest_id > 0
+        assert isinstance(start_date, datetime)
+        assert isinstance(end_date, datetime)
+        assert isinstance(amount_of_guests, int)
+        assert amount_of_guests > 0
+        assert isinstance(status, ReservationStatus)
+
+        self.__room_id = room_id
+        self.__guest_id = guest_id
+        self.__start_date = start_date
+        self.__end_date = end_date
+        self.__amount_of_guests = amount_of_guests
+        self.__status = status.value
+
     @hybrid_property
     def room_id(self) -> int:
         """
@@ -63,6 +83,7 @@ class Reservation(Base):
         Sets the starting datetime of the reservation
         :param start_date: datetime indicating when the reservation starts
         """
+        assert isinstance(start_date, datetime)
         self.__start_date = start_date
 
     @hybrid_property
@@ -79,6 +100,7 @@ class Reservation(Base):
         Sets the end datetime of the reservation
         :param end_date: datetime indicating when the reservation ends
         """
+        assert isinstance(end_date, datetime)
         self.__end_date = end_date
 
     @hybrid_property
