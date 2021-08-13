@@ -104,4 +104,3 @@ class Guest(Base):
     __last_name = Column("last_name", String, nullable=False)
 
     __is_active = Column("is_active", Boolean, nullable=False, default=True)
-
