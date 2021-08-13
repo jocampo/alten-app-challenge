@@ -2,6 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column, DateTime, ForeignKey, BigInteger, Integer, Enum
 
+from business.entities.ReservationStatus import ReservationStatus
 from db.entities import Base
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -100,23 +101,22 @@ class Reservation(Base):
         self.__amount_of_guests = amount_of_guests
 
     @hybrid_property
-    def status(self) -> str:
+    def status(self) -> ReservationStatus:
         """
         Gets the status of the reservation
-        :return: Status enum of the reservation (i.e. SCHEDULED)
+        :return: Status enum of the reservation (i.e. ReservationStatus.SCHEDULED)
         """
-        return self.__status
+        return ReservationStatus(self.__status)
 
     @status.setter
-    def status(self, status: str):
+    def status(self, status: ReservationStatus):
         """
         Sets the status of the reservation
-        :param status: status of the reservation (i.e. SCHEDULED)
+        :param status: status of the reservation (i.e. ReservationStatus.SCHEDULED)
         """
-        assert isinstance(status, str)
-        assert status
+        assert isinstance(status, ReservationStatus)
 
-        self.__status = status
+        self.__status = status.value
 
     __room_id = Column("room_id",
                        BigInteger,
