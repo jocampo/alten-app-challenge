@@ -7,14 +7,23 @@ from sqlalchemy import pool
 from alembic import context
 
 from config import DATABASE_URL
+from utils.heroku import HerokuUtils
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
+
 config = context.config
 
 
 # set the sqlalchemy.url with the actual variable coming from Heroku
-config.set_section_option(config.config_ini_section, "DATABASE_URL", DATABASE_URL)
+# but os.environ variable takes priority if it's set
+if "DATABASE_URL" in os.environ:
+    db_url = HerokuUtils.parse_postgres_dialect(os.environ['DATABASE_URL'])
+    # os.environ['DATABASE_URL'] = db_url
+else:
+    db_url = DATABASE_URL
+
+config.set_section_option(config.config_ini_section, "DATABASE_URL", db_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

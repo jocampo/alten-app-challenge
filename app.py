@@ -11,14 +11,20 @@ from db.ConnectionManager import ConnectionManager
 from db.GuestDAO import GuestDAO
 from db.entities.Guest import Guest
 from db.entities.Room import Room
+from utils.heroku import HerokuUtils
 
-os.environ["DATABASE_URL"] = DATABASE_URL
+if "DATABASE_URL" in os.environ:
+    db_url = HerokuUtils.parse_postgres_dialect(os.environ['DATABASE_URL'])
+    # os.environ['DATABASE_URL'] = db_url
+else:
+    os.environ["DATABASE_URL"] = DATABASE_URL
+    db_url = DATABASE_URL
 
 app = Flask(__name__)
 heroku = Heroku(app)
 CORS(app, support_credentials=True)
 
-connection_manager = ConnectionManager(DATABASE_URL)
+connection_manager = ConnectionManager(db_url)
 
 
 @app.route('/')
