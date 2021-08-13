@@ -5,12 +5,13 @@ name = "pypi"
 
 [packages]
 flask-restful = "*"
-flask-sqlalchemy = "*"
 alembic = "*"
 psycopg2-binary = "*"
 flask-cors = "*"
 flask-heroku = "*"
 gunicorn = "*"
+sqlalchemy = "*"
+flask-sqlalchemy-session = "*"
 
 [dev-packages]
 
