@@ -18,7 +18,7 @@ branch_labels = None
 depends_on = None
 
 reservation_status_type_name = "reservation_status_type"
-reservation_status_type = sa.Enum("SCHEDULED", " CANCELED", name=reservation_status_type_name)
+reservation_status_type = sa.Enum("SCHEDULED", "CANCELED", name=reservation_status_type_name)
 
 
 def upgrade():
