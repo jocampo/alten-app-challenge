@@ -13,18 +13,10 @@ class Guest(Base):
         """
         Constructor for the Guest SQLAlchemy entity
         """
-        assert isinstance(document, str)
-        assert document
-        assert isinstance(first_name, str)
-        assert first_name
-        assert isinstance(last_name, str)
-        assert last_name
-        assert isinstance(is_active, bool)
-
-        self.__document = document
-        self.__first_name = first_name
-        self.__last_name = last_name
-        self.__is_active = is_active
+        self.document = document
+        self.first_name = first_name
+        self.last_name = last_name
+        self.is_active = is_active
 
     @hybrid_property
     def document(self) -> str:

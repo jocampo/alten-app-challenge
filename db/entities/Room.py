@@ -18,15 +18,9 @@ class Room(Base):
         :param capacity: how many people fit in the room
         :param is_active: indicates if the room is active or not
         """
-        assert isinstance(name, str)
-        assert name
-        assert isinstance(capacity, int)
-        assert capacity > 0
-        assert isinstance(is_active, bool)
-
-        self.__name = name
-        self.__capacity = capacity
-        self.__is_active = is_active
+        self.name = name
+        self.capacity = capacity
+        self.is_active = is_active
 
     @hybrid_property
     def name(self) -> str:

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column, DateTime, ForeignKey, BigInteger, Integer, Enum
 
-from business.entities.ReservationStatus import ReservationStatus
+from api.entities.ReservationStatus import ReservationStatus
 from db.entities import Base
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -14,22 +14,12 @@ class Reservation(Base):
 
     def __init__(self, room_id: int, guest_id: int, start_date: datetime, end_date: datetime, amount_of_guests: int,
                  status: ReservationStatus):
-        assert isinstance(room_id, int)
-        assert room_id > 0
-        assert isinstance(guest_id, int)
-        assert guest_id > 0
-        assert isinstance(start_date, datetime)
-        assert isinstance(end_date, datetime)
-        assert isinstance(amount_of_guests, int)
-        assert amount_of_guests > 0
-        assert isinstance(status, ReservationStatus)
-
-        self.__room_id = room_id
-        self.__guest_id = guest_id
-        self.__start_date = start_date
-        self.__end_date = end_date
-        self.__amount_of_guests = amount_of_guests
-        self.__status = status.value
+        self.room_id = room_id
+        self.guest_id = guest_id
+        self.start_date = start_date
+        self.end_date = end_date
+        self.amount_of_guests = amount_of_guests
+        self.status = status.value
 
     @hybrid_property
     def room_id(self) -> int:
