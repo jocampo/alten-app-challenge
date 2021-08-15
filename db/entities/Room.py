@@ -11,7 +11,7 @@ class Room(Base):
     """
     Room SQLAlchemy entity
     """
-    def __init__(self, name, capacity, is_active=True):
+    def init_fields(self, name, capacity, is_active=True):
         """
         Initializes the room entity with data
         :param name: a non-empty string that acts as name for the room (i.e. "Room 202")

@@ -12,8 +12,17 @@ class Reservation(Base):
     Reservation SQLAlchemy entity
     """
 
-    def __init__(self, room_id: int, guest_id: int, start_date: datetime, end_date: datetime, amount_of_guests: int,
-                 status: ReservationStatus):
+    def init_fields(self, room_id: int, guest_id: int, start_date: datetime, end_date: datetime, amount_of_guests: int,
+                    status: ReservationStatus):
+        """
+        Initializes the room entity with data
+        :param room_id: id of the room tied to this reservation
+        :param guest_id: id of the guest tied to this reservation
+        :param start_date: starting date of the reservation
+        :param end_date: end date of the reservation
+        :param amount_of_guests: amount of guests to be included in the reservation
+        :param status: status of the reservation
+        """
         self.room_id = room_id
         self.guest_id = guest_id
         self.start_date = start_date

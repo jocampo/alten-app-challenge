@@ -9,9 +9,9 @@ class Guest(Base):
     """
     Guest SQLAlchemy entity
     """
-    def __init__(self, document: str, first_name: str, last_name: str, is_active: bool = True):
+    def init_fields(self, document: str, first_name: str, last_name: str, is_active: bool = True):
         """
-        Constructor for the Guest SQLAlchemy entity
+        Initializes the guest entity with data
         """
         self.document = document
         self.first_name = first_name
