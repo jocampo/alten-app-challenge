@@ -21,7 +21,7 @@ class GuestService:
         """
         Fetches a single guest given a matching id
         :param guest_id: Id of the guest being fetched
-        :return: Guest entity if found (otherwise None)
+        :return: Guest entity if found
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching guest is found
         """
         assert isinstance(guest_id, int)
