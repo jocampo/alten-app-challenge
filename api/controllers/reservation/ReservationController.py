@@ -35,8 +35,8 @@ class ReservationController(Resource):
         self.__validate_post(request.json)
 
         # Convert status field if found in the payload (from string to enum type)
-        if ReservationFields.STATUS.name in request.json:
-            request.json[ReservationFields.STATUS.name] = ReservationStatus(request.json[ReservationFields.STATUS.name])
+        if ReservationFields.STATUS.value in request.json:
+            request.json[ReservationFields.STATUS.value] = ReservationStatus(request.json[ReservationFields.STATUS.value])
 
         try:
             reservation = ReservationService.create(request.json)
