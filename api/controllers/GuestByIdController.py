@@ -11,7 +11,7 @@ parser = reqparse.RequestParser()
 parser.add_argument("guest")
 
 
-class GuestBaseController(Resource):
+class GuestByIdController(Resource):
     """
     Controller for the Guest resource that require query params
     """

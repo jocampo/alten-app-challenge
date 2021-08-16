@@ -5,7 +5,7 @@ from flask_heroku import Heroku
 from flask_restful import Api
 from flask_sqlalchemy_session import flask_scoped_session
 
-from api.controllers.GuestBaseController import GuestBaseController
+from api.controllers.GuestByIdController import GuestByIdController
 from api.controllers.GuestController import GuestController
 from api.controllers.Routes import Routes
 from config import DATABASE_URL
@@ -32,8 +32,8 @@ def index():
     return "Welcome to the Hotel API"
 
 
-api.add_resource(GuestBaseController, Routes.GUESTS.value)
-api.add_resource(GuestController, Routes.GUESTS_QUERY_PARAMS.value)
+api.add_resource(GuestByIdController, Routes.GUESTS.value)
+api.add_resource(GuestController, Routes.GUESTS_BY_ID.value)
 
 if __name__ == "__main__":
     app.run()
