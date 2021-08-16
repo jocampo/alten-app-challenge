@@ -18,6 +18,7 @@ class GuestFields(Enum):
 
     UPDATED_AT = "updated_at"
 
+
 """ Collection of allowed fields for the POST operation """
 ALLOWED_POST_FIELDS = frozenset((
     GuestFields.DOCUMENT.value,
@@ -25,12 +26,18 @@ ALLOWED_POST_FIELDS = frozenset((
     GuestFields.LAST_NAME.value
 ))
 
+""" Make sure this collection makes sense """
+assert all([GuestFields(x) for x in ALLOWED_POST_FIELDS])
+
 """ Collection of required fields for the POST operation """
 REQUIRED_POST_FIELDS = frozenset((
     GuestFields.DOCUMENT.value,
     GuestFields.FIRST_NAME.value,
     GuestFields.LAST_NAME.value
 ))
+
+""" Make sure this collection makes sense """
+assert all([GuestFields(x) for x in REQUIRED_POST_FIELDS])
 
 """ Collection of allowed fields for the PUT operation """
 ALLOWED_PUT_FIELDS = frozenset((
@@ -40,5 +47,11 @@ ALLOWED_PUT_FIELDS = frozenset((
     GuestFields.IS_ACTIVE.value
 ))
 
+""" Make sure this collection makes sense """
+assert all([GuestFields(x) for x in ALLOWED_PUT_FIELDS])
+
 """ Collection of required fields for the PUT operation """
 REQUIRED_PUT_FIELDS = frozenset(())
+
+""" Make sure this collection makes sense """
+assert all([GuestFields(x) for x in REQUIRED_PUT_FIELDS])
