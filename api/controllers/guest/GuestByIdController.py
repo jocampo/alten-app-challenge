@@ -12,7 +12,7 @@ class GuestByIdController(Resource):
     """
     Controller for the Guest resource that require a guest id
     """
-    def get(self, guest_id):
+    def get(self, guest_id: int):
         """
         Method to handle http GET requests for this resource, which fetches a single guest
         :param guest_id: id of the guest to be fetched
@@ -20,13 +20,13 @@ class GuestByIdController(Resource):
         """
         try:
             guest = GuestService.get_by_id(guest_id)
-        except NoResultFound as err:
+        except NoResultFound:
             # TODO: log error
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
         # TODO: Return actual object and status code in json (marshmallow?)
         return HttpStatuses.OK.value
 
-    def put(self, guest_id):
+    def put(self, guest_id: int):
         """
         Method to handle http PUT requests for this resource
         :param guest_id: id of the guest to be updated
@@ -42,7 +42,7 @@ class GuestByIdController(Resource):
         # TODO: Return actual object and status code in json (marshmallow?)
         return HttpStatuses.OK.value
 
-    def delete(self, guest_id):
+    def delete(self, guest_id: int):
         """
         Method to handle http DELETE requests for this resource
         :param guest_id: id of the guest to be deleted
@@ -50,7 +50,9 @@ class GuestByIdController(Resource):
         """
         try:
             GuestService.delete(guest_id)
-        except SQLAlchemyError as err:
+        except NoResultFound:
+            abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
+        except SQLAlchemyError:
             # TODO: log error
             abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.GENERAL_SERVER_ERROR.value)
         return HttpStatuses.OK.value
