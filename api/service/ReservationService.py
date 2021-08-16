@@ -24,8 +24,8 @@ class ReservationService:
         :return: Reservation entity if found
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching reservation is found
         """
-        assert isinstance(reservation_id, int)
-        assert reservation_id > 0
+        assert isinstance(reservation_id, int), type(reservation_id)
+        assert reservation_id > 0, reservation_id
         return ReservationDAO.get(reservation_id)
 
     @staticmethod
@@ -34,7 +34,7 @@ class ReservationService:
         Creates a reservation based on the specified create_request dict
         :param create_request: dictionary specifying the values for the reservation properties
         """
-        assert isinstance(create_request, dict)
+        assert isinstance(create_request, dict), type(create_request)
         assert len(create_request.keys()) > 0
 
         # TODO: Enforce ALL required fields, only
@@ -57,9 +57,9 @@ class ReservationService:
         :param update_request: Fields we want to replace of the existing reservation
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching reservation is found for the update
         """
-        assert isinstance(reservation_id, int)
-        assert reservation_id > 0
-        assert isinstance(update_request, dict)
+        assert isinstance(reservation_id, int), type(reservation_id)
+        assert reservation_id > 0, reservation_id
+        assert isinstance(update_request, dict), type(update_request)
         assert len(update_request.keys()) > 0
 
         # TODO: Business logic and validations re: reservations and times
@@ -79,8 +79,8 @@ class ReservationService:
         Deletes a Reservation
         :param reservation_id: Reservation id that is to be deleted
         """
-        assert isinstance(reservation_id, int)
-        assert reservation_id > 0
+        assert isinstance(reservation_id, int), type(reservation_id)
+        assert reservation_id > 0, reservation_id
 
         ReservationDAO.begin()
         ReservationDAO.delete(reservation_id)

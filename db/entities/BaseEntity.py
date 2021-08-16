@@ -33,8 +33,8 @@ class BaseEntity:
         Sets the id of the entity
         :param id: identifier of the entity
         """
-        assert isinstance(id, int)
-        assert id > 0
+        assert isinstance(id, int), type(id)
+        assert id > 0, id
 
         self.__id = id
 
@@ -52,6 +52,7 @@ class BaseEntity:
         Sets the created_at datetime of the entity
         :param created_at: datetime indicating when the entity was created
         """
+        assert isinstance(created_at, datetime), type(created_at)
         self.__created_at = created_at
 
     @hybrid_property
@@ -68,6 +69,7 @@ class BaseEntity:
         Sets the updated_at datetime of the entity
         :param updated_at: datetime indicating when the entity was updated
         """
+        assert isinstance(updated_at, datetime), type(updated_at)
         self.__updated_at = updated_at
 
     __id = Column("id", Integer, primary_key=True)

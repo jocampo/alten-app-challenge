@@ -77,7 +77,7 @@ class GuestService:
         TODO: should we look for reservations and delete them beforehand?
         :param guest_id: Guest id that is to be deleted
         """
-        assert isinstance(guest_id, int)
+        assert isinstance(guest_id, int), type(guest_id)
         assert guest_id > 0
 
         GuestDAO.begin()

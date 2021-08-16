@@ -24,8 +24,8 @@ class RoomService:
         :return: Room entity if found
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching room is found
         """
-        assert isinstance(room_id, int)
-        assert room_id > 0
+        assert isinstance(room_id, int), type(room_id)
+        assert room_id > 0, room_id
         return RoomDAO.get(room_id)
 
     @staticmethod
@@ -34,7 +34,7 @@ class RoomService:
         Creates a room based on the specified create_request dict
         :param create_request: dictionary specifying the values for the room properties
         """
-        assert isinstance(create_request, dict)
+        assert isinstance(create_request, dict), type(create_request)
         assert len(create_request.keys()) > 0
 
         room = Room()
@@ -55,9 +55,9 @@ class RoomService:
         :param update_request: Fields we want to replace of the existing room
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching room is found for the update
         """
-        assert isinstance(room_id, int)
-        assert room_id > 0
-        assert isinstance(update_request, dict)
+        assert isinstance(room_id, int), type(room_id)
+        assert room_id > 0, room_id
+        assert isinstance(update_request, dict), type(update_request)
         assert len(update_request.keys()) > 0
 
         room = RoomDAO.get(room_id)
@@ -77,8 +77,8 @@ class RoomService:
         TODO: should we look for reservations and delete them beforehand?
         :param room_id: Room id that is to be deleted
         """
-        assert isinstance(room_id, int)
-        assert room_id > 0
+        assert isinstance(room_id, int), type(room_id)
+        assert room_id > 0, room_id
 
         RoomDAO.begin()
         RoomDAO.delete(room_id)

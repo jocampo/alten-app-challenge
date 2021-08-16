@@ -32,8 +32,8 @@ class Guest(Base):
         Sets the Document Number (i.e. national ID or passport) for the guest
         :param document: Document Number (i.e. national ID or passport) of the guest
         """
-        assert isinstance(document, str)
-        assert document
+        assert isinstance(document, str), type(document)
+        assert document, document
         self.__document = document
 
     @hybrid_property
@@ -50,8 +50,8 @@ class Guest(Base):
         Sets the first name for the guest
         :param first_name: first name of the guest
         """
-        assert isinstance(first_name, str)
-        assert first_name
+        assert isinstance(first_name, str), type(first_name)
+        assert first_name, first_name
         self.__first_name = first_name
 
     @hybrid_property
@@ -68,8 +68,8 @@ class Guest(Base):
         Sets the last name for the guest
         :param last_name: last name of the guest
         """
-        assert isinstance(last_name, str)
-        assert last_name
+        assert isinstance(last_name, str), type(last_name)
+        assert last_name, last_name
         self.__last_name = last_name
 
     @hybrid_property
@@ -86,7 +86,7 @@ class Guest(Base):
         Sets whether a guest is active or not
         :param is_active: a boolean indicating if the guest entity is active or not
         """
-        assert isinstance(is_active, bool)
+        assert isinstance(is_active, bool), type(is_active)
         self.__is_active = is_active
 
     __document = Column("document", String, nullable=False)

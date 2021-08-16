@@ -44,8 +44,8 @@ class Reservation(Base):
         Sets the id of the room in this reservation
         :param room_id: id of the room in this reservation
         """
-        assert isinstance(room_id, int)
-        assert room_id > 0
+        assert isinstance(room_id, int), type(room_id)
+        assert room_id > 0, room_id
 
         self.__room_id = room_id
 
@@ -63,8 +63,8 @@ class Reservation(Base):
         Sets the id of the guest in this reservation
         :param guest_id: id of the guest in this reservation
         """
-        assert isinstance(guest_id, int)
-        assert guest_id > 0
+        assert isinstance(guest_id, int), type(guest_id)
+        assert guest_id > 0, guest_id
 
         self.__guest_id = guest_id
 
@@ -82,7 +82,7 @@ class Reservation(Base):
         Sets the starting datetime of the reservation
         :param start_date: datetime indicating when the reservation starts
         """
-        assert isinstance(start_date, datetime)
+        assert isinstance(start_date, datetime), type(start_date)
         self.__start_date = start_date
 
     @hybrid_property
@@ -99,7 +99,7 @@ class Reservation(Base):
         Sets the end datetime of the reservation
         :param end_date: datetime indicating when the reservation ends
         """
-        assert isinstance(end_date, datetime)
+        assert isinstance(end_date, datetime), type(end_date)
         self.__end_date = end_date
 
     @hybrid_property
@@ -116,8 +116,8 @@ class Reservation(Base):
         Sets the amount of guests in the reservation
         :param amount_of_guests: a positive integer
         """
-        assert isinstance(amount_of_guests, int)
-        assert amount_of_guests > 0
+        assert isinstance(amount_of_guests, int), type(amount_of_guests)
+        assert amount_of_guests > 0, amount_of_guests
 
         self.__amount_of_guests = amount_of_guests
 
@@ -135,7 +135,7 @@ class Reservation(Base):
         Sets the status of the reservation
         :param status: status of the reservation (i.e. ReservationStatus.SCHEDULED)
         """
-        assert isinstance(status, ReservationStatus)
+        assert isinstance(status, ReservationStatus), type(status)
 
         self.__status = status.value
 

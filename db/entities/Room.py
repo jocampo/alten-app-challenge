@@ -36,8 +36,8 @@ class Room(Base):
         Sets the name of the room
         :param name: a non-empty name of the room
         """
-        assert isinstance(name, str)
-        assert name
+        assert isinstance(name, str), type(name)
+        assert name, name
 
         self.__name = name
 
@@ -55,8 +55,8 @@ class Room(Base):
         Sets the capacity of the room
         :param capacity: a positive integer
         """
-        assert isinstance(capacity, int)
-        assert capacity > 0
+        assert isinstance(capacity, int), type(capacity)
+        assert capacity > 0, capacity
 
         self.__capacity = capacity
 
@@ -74,7 +74,7 @@ class Room(Base):
         Sets whether a room is active or not
         :param is_active: a boolean indicating if the room is active or not
         """
-        assert isinstance(is_active, bool)
+        assert isinstance(is_active, bool), type(is_active)
         self.__is_active = is_active
 
     __name = Column("name", String, nullable=False)
