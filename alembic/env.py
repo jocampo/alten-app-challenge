@@ -18,8 +18,7 @@ config = context.config
 # set the sqlalchemy.url with the actual variable coming from Heroku
 # but os.environ variable takes priority if it's set
 if "DATABASE_URL" in os.environ:
-    db_url = HerokuUtils.parse_postgres_dialect(os.environ['DATABASE_URL'])
-    # os.environ['DATABASE_URL'] = db_url
+    db_url = HerokuUtils.parse_postgres_dialect(os.environ["DATABASE_URL"])
 else:
     db_url = DATABASE_URL
 

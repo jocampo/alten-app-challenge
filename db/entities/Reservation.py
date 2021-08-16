@@ -142,7 +142,7 @@ class Reservation(Base):
     __room_id = Column("room_id",
                        BigInteger,
                        ForeignKey(
-                           'room.id',
+                           "room.id",
                            name="fk_room_id",
                            onupdate="RESTRICT",
                            ondelete="RESTRICT"),
@@ -151,7 +151,7 @@ class Reservation(Base):
     __guest_id = Column("guest_id",
                         BigInteger,
                         ForeignKey(
-                            'guest.id',
+                            "guest.id",
                             name="fk_guest_id",
                             onupdate="RESTRICT",
                             ondelete="RESTRICT"),

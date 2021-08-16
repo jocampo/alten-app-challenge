@@ -12,8 +12,8 @@ from sqlalchemy.sql import func
 
 
 # revision identifiers, used by Alembic.
-revision = '93c8fc6bcbb9'
-down_revision = '77666aed8f77'
+revision = "93c8fc6bcbb9"
+down_revision = "77666aed8f77"
 branch_labels = None
 depends_on = None
 
@@ -26,9 +26,9 @@ def upgrade():
         "reservation",
         Column("id", BigInteger, primary_key=True),
         Column("room_id", BigInteger,
-               ForeignKey('room.id', name="fk_room_id", onupdate="RESTRICT", ondelete="RESTRICT"), nullable=False),
+               ForeignKey("room.id", name="fk_room_id", onupdate="RESTRICT", ondelete="RESTRICT"), nullable=False),
         Column("guest_id", BigInteger,
-               ForeignKey('guest.id', name="fk_guest_id", onupdate="RESTRICT", ondelete="RESTRICT"), nullable=False),
+               ForeignKey("guest.id", name="fk_guest_id", onupdate="RESTRICT", ondelete="RESTRICT"), nullable=False),
         Column("start_date", DateTime(timezone=True), nullable=False),
         Column("end_date", DateTime(timezone=True), nullable=False),
         Column("amount_of_guests", Integer),
