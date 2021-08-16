@@ -1,4 +1,4 @@
-from ctypes import Union
+from typing import Union
 from datetime import datetime
 
 from sqlalchemy import Column, DateTime, ForeignKey, BigInteger, Integer, Enum
