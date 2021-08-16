@@ -10,7 +10,7 @@ from api.service.GuestService import GuestService
 
 class GuestByIdController(Resource):
     """
-    Controller for the Guest resource that require a guest id
+    Controller for the Guest resource that requires a guest id
     """
     def get(self, guest_id: int):
         """
@@ -60,7 +60,7 @@ class GuestByIdController(Resource):
     def __validate_put(self, update_request: dict):
         """
         Performs validations on the PUT request and fails the request if its data has issues
-        :param update_request: post request data
+        :param update_request: PUT request data
         """
         error_message = ""
 

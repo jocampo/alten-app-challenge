@@ -45,7 +45,7 @@ class GuestController(Resource):
     def __validate_post(self, create_request: dict):
         """
         Performs validations on the POST request and fails the request if its data has issues
-        :param create_request: post request data
+        :param create_request: POST request data
         """
         error_message = ""
 
