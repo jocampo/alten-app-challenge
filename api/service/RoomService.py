@@ -76,11 +76,13 @@ class RoomService:
         Deletes a Room
         TODO: should we look for reservations and delete them beforehand?
         :param room_id: Room id that is to be deleted
+        :raises sqlalchemy.orm.exc.NoResultFound: when no matching room is found for the deletion
         """
         assert isinstance(room_id, int), type(room_id)
         assert room_id > 0, room_id
 
+        room = RoomDAO.get(room_id)
         RoomDAO.begin()
-        RoomDAO.delete(room_id)
+        RoomDAO.delete(room)
         RoomDAO.commit()
 

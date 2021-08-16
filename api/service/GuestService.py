@@ -73,14 +73,16 @@ class GuestService:
     @staticmethod
     def delete(guest_id: int):
         """
-        Deletes a Guest
+        Deletes a Guest that matches the provided guest_id
         TODO: should we look for reservations and delete them beforehand?
         :param guest_id: Guest id that is to be deleted
+        :raises sqlalchemy.orm.exc.NoResultFound: when no matching guest is found for the deletion
         """
         assert isinstance(guest_id, int), type(guest_id)
-        assert guest_id > 0
+        assert guest_id > 0, guest_id
 
+        guest = GuestDAO.get(guest_id)
         GuestDAO.begin()
-        GuestDAO.delete(guest_id)
+        GuestDAO.delete(guest)
         GuestDAO.commit()
 

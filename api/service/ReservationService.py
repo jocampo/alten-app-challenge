@@ -78,11 +78,13 @@ class ReservationService:
         """
         Deletes a Reservation
         :param reservation_id: Reservation id that is to be deleted
+        :raises sqlalchemy.orm.exc.NoResultFound: when no matching reservation is found for the update
         """
         assert isinstance(reservation_id, int), type(reservation_id)
         assert reservation_id > 0, reservation_id
 
+        reservation = ReservationDAO.get(reservation_id)
         ReservationDAO.begin()
-        ReservationDAO.delete(reservation_id)
+        ReservationDAO.delete(reservation)
         ReservationDAO.commit()
 
