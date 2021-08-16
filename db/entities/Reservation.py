@@ -1,3 +1,4 @@
+from ctypes import Union
 from datetime import datetime
 
 from sqlalchemy import Column, DateTime, ForeignKey, BigInteger, Integer, Enum
@@ -5,6 +6,8 @@ from sqlalchemy import Column, DateTime, ForeignKey, BigInteger, Integer, Enum
 from api.entities.ReservationStatus import ReservationStatus
 from db.entities import Base
 from sqlalchemy.ext.hybrid import hybrid_property
+
+from utils.date_utils import DateUtils
 
 
 class Reservation(Base):
@@ -77,13 +80,16 @@ class Reservation(Base):
         return self.__start_date
 
     @start_date.setter
-    def start_date(self, start_date: datetime):
+    def start_date(self, start_date: Union[datetime, str]):
         """
         Sets the starting datetime of the reservation
         :param start_date: datetime indicating when the reservation starts
         """
-        assert isinstance(start_date, datetime), type(start_date)
-        self.__start_date = start_date
+        assert isinstance(start_date, (datetime, str)), type(start_date)
+        if isinstance(start_date, str):
+            self.__start_date = DateUtils.convert_str_to_datetime(start_date)
+        else:
+            self.__start_date = start_date
 
     @hybrid_property
     def end_date(self) -> datetime:
@@ -94,13 +100,16 @@ class Reservation(Base):
         return self.__end_date
 
     @end_date.setter
-    def end_date(self, end_date: datetime):
+    def end_date(self, end_date: Union[datetime, str]):
         """
         Sets the end datetime of the reservation
         :param end_date: datetime indicating when the reservation ends
         """
-        assert isinstance(end_date, datetime), type(end_date)
-        self.__end_date = end_date
+        assert isinstance(end_date, (datetime, str)), type(end_date)
+        if isinstance(end_date, str):
+            self.__end_date = DateUtils.convert_str_to_datetime(end_date)
+        else:
+            self.__end_date = end_date
 
     @hybrid_property
     def amount_of_guests(self) -> int:
