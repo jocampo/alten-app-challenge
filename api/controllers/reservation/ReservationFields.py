@@ -41,8 +41,7 @@ REQUIRED_POST_FIELDS = frozenset((
     ReservationFields.GUEST_ID.value,
     ReservationFields.ROOM_ID.value,
     ReservationFields.START_DATE.value,
-    ReservationFields.END_DATE.value,
-    ReservationFields.AMOUNT_OF_GUESTS.value,
+    ReservationFields.END_DATE.value
 ))
 
 """ Make sure this collection makes sense """
