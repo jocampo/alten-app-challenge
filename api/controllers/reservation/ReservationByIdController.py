@@ -2,9 +2,10 @@ from flask_restful import Resource, abort
 from sqlalchemy.exc import SQLAlchemyError, NoResultFound
 from flask import request, jsonify
 
-from api.controllers.reservation.ReservationFields import ALLOWED_PUT_FIELDS, REQUIRED_PUT_FIELDS
+from api.controllers.reservation.ReservationFields import ALLOWED_PUT_FIELDS, REQUIRED_PUT_FIELDS, ReservationFields
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
+from api.entities.ReservationStatus import ReservationStatus
 from api.service.ReservationService import ReservationService
 
 
@@ -33,6 +34,11 @@ class ReservationByIdController(Resource):
         :return: Updated entity and HTTP Code indicating the result of the action
         """
         self.__validate_put(request.json)
+
+        # Convert status field if found in the payload (from string to enum type)
+        if ReservationFields.STATUS.name in request.json:
+            request.json[ReservationFields.STATUS.name] = ReservationStatus(request.json[ReservationFields.STATUS.name])
+
         try:
             reservation = ReservationService.update(reservation_id, request.json)
         except NoResultFound as err:
