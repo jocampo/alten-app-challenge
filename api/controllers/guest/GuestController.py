@@ -1,6 +1,6 @@
 import json
 
-from flask_restful import Resource, reqparse, abort
+from flask_restful import Resource, abort
 from sqlalchemy.exc import SQLAlchemyError, NoResultFound
 
 from api.controllers.guest.GuestFields import GuestFields, ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS
@@ -8,9 +8,6 @@ from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.service.GuestService import GuestService
 from flask import request, jsonify
-
-parser = reqparse.RequestParser()
-parser.add_argument("guest")
 
 
 class GuestController(Resource):
@@ -42,7 +39,6 @@ class GuestController(Resource):
         except SQLAlchemyError as err:
             # TODO: log error
             abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
-        # TODO: Catch other potential exception types here
         # TODO: Return actual object and status code in json (marshmallow?)
         return HttpStatuses.OK.value
 

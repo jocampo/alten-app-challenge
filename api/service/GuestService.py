@@ -24,7 +24,7 @@ class GuestService:
         :return: Guest entity if found
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching guest is found
         """
-        assert isinstance(guest_id, int)
+        assert isinstance(guest_id, int), type(guest_id)
         assert guest_id > 0
         return GuestDAO.get(guest_id)
 
@@ -34,7 +34,7 @@ class GuestService:
         Creates a guest based on the specified create_request dict
         :param create_request: dictionary specifying the values for the guest properties
         """
-        assert isinstance(create_request, dict)
+        assert isinstance(create_request, dict), type(create_request)
         assert len(create_request.keys()) > 0
 
         guest = Guest()
@@ -55,9 +55,9 @@ class GuestService:
         :param update_request: Fields we want to replace of the existing guest
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching guest is found for the update
         """
-        assert isinstance(guest_id, int)
-        assert guest_id > 0
-        assert isinstance(update_request, dict)
+        assert isinstance(guest_id, int), type(guest_id)
+        assert guest_id > 0, guest_id
+        assert isinstance(update_request, dict), type(update_request)
         assert len(update_request.keys()) > 0
 
         guest = GuestDAO.get(guest_id)
