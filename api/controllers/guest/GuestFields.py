@@ -39,6 +39,7 @@ REQUIRED_POST_FIELDS = frozenset((
 
 """ Make sure this collection makes sense """
 assert all([GuestFields(x) for x in REQUIRED_POST_FIELDS])
+assert REQUIRED_POST_FIELDS.issubset(ALLOWED_POST_FIELDS)
 
 """ Collection of allowed fields for the PUT operation """
 ALLOWED_PUT_FIELDS = frozenset((
@@ -57,3 +58,4 @@ REQUIRED_PUT_FIELDS = frozenset(())
 
 """ Make sure this collection makes sense """
 assert all([GuestFields(x) for x in REQUIRED_PUT_FIELDS])
+assert REQUIRED_PUT_FIELDS.issubset(ALLOWED_PUT_FIELDS)
