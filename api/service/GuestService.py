@@ -41,7 +41,6 @@ class GuestService:
         set_field = functools.partial(setattr, guest)
         for k, v in create_request.items():
             set_field(k, v)
-            # TODO: confirm what happens if the dict contains keys that do not belong in a guest entity
 
         GuestDAO.begin()
         GuestDAO.save(guest)
@@ -64,7 +63,6 @@ class GuestService:
         set_field = functools.partial(setattr, guest)
         for k, v in update_request.items():
             set_field(k, v)
-            # TODO: confirm what happens if the dict contains keys that do not belong in a guest entity
 
         GuestDAO.begin()
         GuestDAO.save(guest)

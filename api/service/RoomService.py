@@ -41,7 +41,6 @@ class RoomService:
         set_field = functools.partial(setattr, room)
         for k, v in create_request.items():
             set_field(k, v)
-            # TODO: confirm what happens if the dict contains keys that do not belong in a room entity
 
         RoomDAO.begin()
         RoomDAO.save(room)
@@ -64,7 +63,6 @@ class RoomService:
         set_field = functools.partial(setattr, room)
         for k, v in update_request.items():
             set_field(k, v)
-            # TODO: confirm what happens if the dict contains keys that do not belong in a room entity
 
         RoomDAO.begin()
         RoomDAO.save(room)

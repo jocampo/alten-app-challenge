@@ -37,13 +37,11 @@ class ReservationService:
         assert isinstance(create_request, dict), type(create_request)
         assert len(create_request.keys()) > 0
 
-        # TODO: Enforce ALL required fields, only
         # TODO: Business logic and validations re: reservations
         reservation = Reservation()
         set_field = functools.partial(setattr, reservation)
         for k, v in create_request.items():
             set_field(k, v)
-            # TODO: confirm what happens if the dict contains keys that do not belong in a reservation entity
 
         ReservationDAO.begin()
         ReservationDAO.save(reservation)
@@ -67,7 +65,6 @@ class ReservationService:
         set_field = functools.partial(setattr, reservation)
         for k, v in update_request.items():
             set_field(k, v)
-            # TODO: confirm what happens if the dict contains keys that do not belong in a reservation entity
 
         ReservationDAO.begin()
         ReservationDAO.save(reservation)
