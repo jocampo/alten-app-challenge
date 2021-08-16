@@ -23,7 +23,8 @@ class GuestFields(Enum):
 ALLOWED_POST_FIELDS = frozenset((
     GuestFields.DOCUMENT.value,
     GuestFields.FIRST_NAME.value,
-    GuestFields.LAST_NAME.value
+    GuestFields.LAST_NAME.value,
+    GuestFields.IS_ACTIVE.value
 ))
 
 """ Make sure this collection makes sense """
@@ -41,6 +42,7 @@ assert all([GuestFields(x) for x in REQUIRED_POST_FIELDS])
 
 """ Collection of allowed fields for the PUT operation """
 ALLOWED_PUT_FIELDS = frozenset((
+    GuestFields.ID.value,
     GuestFields.DOCUMENT.value,
     GuestFields.FIRST_NAME.value,
     GuestFields.LAST_NAME.value,
