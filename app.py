@@ -8,6 +8,8 @@ from flask_sqlalchemy_session import flask_scoped_session
 from api.controllers.guest.GuestByIdController import GuestByIdController
 from api.controllers.guest.GuestController import GuestController
 from api.controllers.Routes import Routes
+from api.controllers.room.RoomByIdController import RoomByIdController
+from api.controllers.room.RoomController import RoomController
 from config import DATABASE_URL
 from db.ConnectionManager import ConnectionManager
 from utils.heroku import HerokuUtils
@@ -35,6 +37,8 @@ def index():
 
 api.add_resource(GuestController, Routes.GUESTS.value)
 api.add_resource(GuestByIdController, Routes.GUESTS_BY_ID.value)
+api.add_resource(RoomController, Routes.ROOMS.value)
+api.add_resource(RoomByIdController, Routes.ROOMS_BY_ID.value)
 
 if __name__ == "__main__":
     app.run()
