@@ -1,0 +1,75 @@
+import json
+
+from flask_restful import Resource, reqparse, abort
+from sqlalchemy.exc import SQLAlchemyError, NoResultFound
+
+from api.controllers.guest.GuestFields import GuestFields, ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS
+from api.entities.ErrorMessages import ErrorMessages
+from api.entities.HttpStatuses import HttpStatuses
+from api.service.GuestService import GuestService
+from flask import request, jsonify
+
+parser = reqparse.RequestParser()
+parser.add_argument("guest")
+
+
+class GuestController(Resource):
+    """
+    Controller for the Guest resource
+    """
+    def get(self):
+        """
+        Method to handle http GET requests for this resource, which fetches all guests
+        :return: HTTP Code indicating the result of the action and the fetched resource
+        """
+        guests = []
+        try:
+            guests = GuestService.get_all()
+        except SQLAlchemyError as err:
+            # TODO: log error
+            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
+        # TODO: Return actual objects and status code in json (marshmallow?)
+        return jsonify(guests), HttpStatuses.OK.value
+
+    def post(self):
+        """
+        Method to handle http POST requests for this resource
+        :return: HTTP Code indicating the result of the action and the newly created entity
+        """
+        self.__validate_post(request.json)
+        try:
+            guest = GuestService.create(request.json)
+        except SQLAlchemyError as err:
+            # TODO: log error
+            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
+        # TODO: Catch other potential exception types here
+        # TODO: Return actual object and status code in json (marshmallow?)
+        return HttpStatuses.OK.value
+
+    def __validate_post(self, create_request: dict):
+        """
+        Performs validations on the POST request and fails the request if its data has issues
+        :param create_request: post request data
+        """
+        error_message = ""
+
+        if not isinstance(create_request, dict):
+            abort(HttpStatuses.BAD_REQUEST.value)
+
+        if len(create_request.keys()) <= 0:
+            error_message = ErrorMessages.EMPTY_BODY_ERROR_MESSAGE.value
+
+        unknown_fields = create_request.keys() - ALLOWED_POST_FIELDS
+        if len(unknown_fields) > 0:
+            error_message = ErrorMessages.UNKNOWN_VALUE_IN_REQUEST_BODY_ERROR_MESSAGE.value.replace(
+                "FIELDS",
+                ", ".join(unknown_fields))
+
+        missing_required_fields = REQUIRED_POST_FIELDS - create_request.keys()
+        if len(missing_required_fields) > 0:
+            error_message = ErrorMessages.REQUEST_MISSING_REQUIRED_FIELDS_ERROR_MESSAGE.value.replace(
+                "FIELDS",
+                ", ".join(missing_required_fields))
+
+        if error_message:
+            abort(HttpStatuses.BAD_REQUEST.value, message=error_message)

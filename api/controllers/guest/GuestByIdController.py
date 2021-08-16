@@ -9,9 +9,9 @@ parser = reqparse.RequestParser()
 parser.add_argument("guest")
 
 
-class GuestController(Resource):
+class GuestByIdController(Resource):
     """
-    Controller for the Guest resource that require no query params
+    Controller for the Guest resource that require a guest id
     """
     def get(self, guest_id):
         """
