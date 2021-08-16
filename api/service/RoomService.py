@@ -21,7 +21,7 @@ class RoomService:
         """
         Fetches a single room given a matching id
         :param room_id: Id of the room being fetched
-        :return: Guest entity if found
+        :return: Room entity if found
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching room is found
         """
         assert isinstance(room_id, int)
@@ -51,7 +51,7 @@ class RoomService:
     def update(room_id: int, update_request: dict):
         """
         Updates a room based on the specified update_request dict
-        :param room_id: Guest id we want to update
+        :param room_id: Room id we want to update
         :param update_request: Fields we want to replace of the existing room
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching room is found for the update
         """
@@ -73,9 +73,9 @@ class RoomService:
     @staticmethod
     def delete(room_id: int):
         """
-        Deletes a Guest
+        Deletes a Room
         TODO: should we look for reservations and delete them beforehand?
-        :param room_id: Guest id that is to be deleted
+        :param room_id: Room id that is to be deleted
         """
         assert isinstance(room_id, int)
         assert room_id > 0
