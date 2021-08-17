@@ -23,6 +23,7 @@ class ReservationController(Resource):
             reservations = ReservationService.get_all()
         except SQLAlchemyError:
             abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
+
         return jsonify(reservations)
 
     def post(self):
@@ -42,8 +43,6 @@ class ReservationController(Resource):
             reservation = ReservationService.get_by_id(reservation_id)
         except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
-        except SQLAlchemyError:
-            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
 
         return make_response(jsonify(reservation), HttpStatuses.CREATED.value)
 
