@@ -17,13 +17,7 @@ class RoomController(Resource):
         Method to handle http GET requests for this resource, which fetches all rooms
         :return: HTTP Code indicating the result of the action and the fetched resources
         """
-        rooms = []
-        try:
-            rooms = RoomService.get_all()
-        except SQLAlchemyError:
-            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
-
-        return jsonify(rooms)
+        return jsonify(RoomService.get_all())
 
     def post(self):
         """

@@ -58,8 +58,6 @@ class ReservationByIdController(Resource):
             ReservationService.delete(reservation_id)
         except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
-        except SQLAlchemyError:
-            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.GENERAL_SERVER_ERROR.value)
 
         return "", HttpStatuses.NO_CONTENT.value
 

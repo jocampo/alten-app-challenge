@@ -18,13 +18,7 @@ class ReservationController(Resource):
         Method to handle http GET requests for this resource, which fetches all reservations
         :return: HTTP Code indicating the result of the action and the fetched resources
         """
-        reservations = []
-        try:
-            reservations = ReservationService.get_all()
-        except SQLAlchemyError:
-            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
-
-        return jsonify(reservations)
+        return jsonify(ReservationService.get_all())
 
     def post(self):
         """

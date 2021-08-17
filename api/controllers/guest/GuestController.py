@@ -19,13 +19,7 @@ class GuestController(Resource):
         Method to handle http GET requests for this resource, which fetches all guests
         :return: HTTP Code indicating the result of the action and the fetched resource
         """
-        guests = []
-        try:
-            guests = GuestService.get_all()
-        except SQLAlchemyError:
-            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
-
-        return jsonify(guests)
+        return jsonify(GuestService.get_all())
 
     def post(self):
         """
