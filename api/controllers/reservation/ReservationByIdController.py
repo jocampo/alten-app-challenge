@@ -1,6 +1,6 @@
 from flask_restful import Resource, abort
 from sqlalchemy.exc import SQLAlchemyError, NoResultFound
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 
 from api.controllers.reservation.ReservationFields import ALLOWED_PUT_FIELDS, REQUIRED_PUT_FIELDS, ReservationFields
 from api.entities.ErrorMessages import ErrorMessages
@@ -19,12 +19,12 @@ class ReservationByIdController(Resource):
         :param reservation_id: id of the reservation to be fetched
         :return: HTTP Code indicating the result of the action and the fetched resource
         """
+        reservation = None
         try:
             reservation = ReservationService.get_by_id(reservation_id)
         except NoResultFound:
-            # TODO: log error
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
-        # TODO: Return actual object and status code in json (marshmallow?)
+
         return jsonify(reservation)
 
     def put(self, reservation_id: int):
@@ -39,29 +39,29 @@ class ReservationByIdController(Resource):
         if ReservationFields.STATUS.value in request.json:
             request.json[ReservationFields.STATUS.value] = ReservationStatus(request.json[ReservationFields.STATUS.value])
 
+        reservation = None
         try:
-            reservation = ReservationService.update(reservation_id, request.json)
-        except NoResultFound as err:
-            # TODO: log error
+            ReservationService.update(reservation_id, request.json)
+            reservation = ReservationService.get_by_id(reservation_id)
+        except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
-        # TODO: Catch other potential exception types here
-        # TODO: Return actual object and status code in json (marshmallow?)
-        return HttpStatuses.OK.value
+
+        return jsonify(reservation)
 
     def delete(self, reservation_id: int):
         """
         Method to handle http DELETE requests for this resource
         :param reservation_id: id of the reservation to be deleted
-        :return: HTTP Code indicating the result of the action
+        :return: HTTP Code indicating the result of the action. If it succeeds, no body is returned
         """
         try:
             ReservationService.delete(reservation_id)
         except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
         except SQLAlchemyError:
-            # TODO: log error
             abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.GENERAL_SERVER_ERROR.value)
-        return HttpStatuses.OK.value
+
+        return "", HttpStatuses.NO_CONTENT.value
 
     def __validate_put(self, update_request: dict):
         """
