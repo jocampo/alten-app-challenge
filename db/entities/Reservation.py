@@ -1,13 +1,12 @@
-from typing import Union
-from datetime import datetime
 from dataclasses import dataclass
+from datetime import datetime
+from typing import Union
 
-from sqlalchemy import Column, DateTime, ForeignKey, BigInteger, Integer, Enum
+from sqlalchemy import BigInteger, Column, DateTime, Enum, ForeignKey, Integer
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from api.entities.ReservationStatus import ReservationStatus
 from db.entities import Base
-from sqlalchemy.ext.hybrid import hybrid_property
-
 from utils.DateUtils import DateUtils
 
 

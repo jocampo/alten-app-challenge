@@ -1,11 +1,11 @@
-from datetime import datetime
 from dataclasses import dataclass
+from datetime import datetime
 
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import declared_attr
 from sqlalchemy.schema import Column
 from sqlalchemy.sql import func
-from sqlalchemy.types import Integer, DateTime
-from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.types import DateTime, Integer
 
 
 @dataclass

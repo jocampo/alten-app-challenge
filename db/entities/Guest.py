@@ -1,9 +1,9 @@
-from sqlalchemy import Column, String, Boolean
 from dataclasses import dataclass
 
-from db.entities import Base
-
+from sqlalchemy import Boolean, Column, String
 from sqlalchemy.ext.hybrid import hybrid_property
+
+from db.entities import Base
 
 
 @dataclass

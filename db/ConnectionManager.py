@@ -1,6 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker, scoped_session
 from flask_sqlalchemy_session import current_session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+
 from utils.singleton import Singleton
 
 

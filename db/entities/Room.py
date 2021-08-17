@@ -1,6 +1,6 @@
-from sqlalchemy import Column, String, Boolean, Integer
 from dataclasses import dataclass
 
+from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from db.entities import Base

@@ -4,8 +4,6 @@ from typing import Any
 
 from flask.json import JSONEncoder
 
-from api.entities.ReservationStatus import ReservationStatus
-
 
 class CustomJSONEncoder(JSONEncoder):
     """
