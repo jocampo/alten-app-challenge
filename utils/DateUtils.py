@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from utils.DateRange import DateRange
+
 
 class DateUtils:
     """
@@ -27,6 +29,36 @@ class DateUtils:
         """
         assert isinstance(dt, datetime), type(dt)
         return dt.isoformat()
+
+    @staticmethod
+    def check_if_date_ranges_overlap(start_date_a: datetime, end_date_a: datetime, start_date_b: datetime,
+                                     end_date_b: datetime) -> bool:
+        """
+        Utility method to check if 2 date ranges overlap
+
+        :param start_date_a: start of the first date range
+        :param end_date_a: end of the first date range
+        :param start_date_b: start of the second date range
+        :param end_date_b: end of the second date range
+        :return: C{True} if the date ranges overlap, C{False} otherwise
+        """
+        # Sanity checks for the "Date Ranges"
+        assert isinstance(start_date_a, datetime), type(start_date_a)
+        assert isinstance(end_date_a, datetime), type(end_date_a)
+        assert isinstance(start_date_b, datetime), type(start_date_b)
+        assert isinstance(end_date_b, datetime), type(end_date_b)
+
+        assert end_date_a > start_date_a
+        assert end_date_b > start_date_b
+
+        r1 = DateRange(start=start_date_a, end=end_date_a)
+        r2 = DateRange(start=start_date_b, end=end_date_b)
+
+        latest_start = max(r1.start, r2.start)
+        earliest_end = min(r1.end, r2.end)
+        delta = int((earliest_end - latest_start).total_seconds()) + 1
+        overlap = max(0, delta)
+        return overlap > 0
 
     """ Default date string format used for the API per ISO 8601 format """
     DEFAULT_DATE_STRING_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
