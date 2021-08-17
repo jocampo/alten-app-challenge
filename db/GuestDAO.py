@@ -12,5 +12,5 @@ class GuestDAO(AbstractDAO):
                 .one())
 
     @staticmethod
-    def list() -> list[Guest]:
+    def get_all() -> list[Guest]:
         return [x for x in GuestDAO.get_connection().query(Guest).all()]

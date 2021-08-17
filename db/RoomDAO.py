@@ -12,5 +12,5 @@ class RoomDAO(AbstractDAO):
                 .one())
 
     @staticmethod
-    def list() -> list[Room]:
+    def get_all() -> list[Room]:
         return [x for x in RoomDAO.get_connection().query(Room).all()]

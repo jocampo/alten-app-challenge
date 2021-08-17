@@ -14,7 +14,7 @@ class RoomService:
         Lists all rooms in the db, regardless of status
         :return: List of all rooms
         """
-        return RoomDAO.list()
+        return RoomDAO.get_all()
 
     @staticmethod
     def get_by_id(room_id: int) -> Room:

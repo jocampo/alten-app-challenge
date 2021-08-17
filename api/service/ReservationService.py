@@ -14,7 +14,7 @@ class ReservationService:
         Lists all reservations in the db, regardless of status
         :return: List of all reservations
         """
-        return ReservationDAO.list()
+        return ReservationDAO.get_all()
 
     @staticmethod
     def get_by_id(reservation_id: int) -> Reservation:

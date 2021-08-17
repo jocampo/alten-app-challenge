@@ -14,7 +14,7 @@ class GuestService:
         Lists all guests in the db, regardless of status
         :return: List of all guests
         """
-        return GuestDAO.list()
+        return GuestDAO.get_all()
 
     @staticmethod
     def get_by_id(guest_id: int) -> Guest:
