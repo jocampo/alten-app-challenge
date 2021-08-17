@@ -1,6 +1,7 @@
 import functools
 
 from db.GuestDAO import GuestDAO
+from db.ReservationDAO import ReservationDAO
 from db.entities.Guest import Guest
 
 
@@ -73,8 +74,8 @@ class GuestService:
     @staticmethod
     def delete(guest_id: int):
         """
-        Deletes a Guest that matches the provided guest_id
-        TODO: should we look for reservations and delete them beforehand?
+        Deletes a Guest that matches the provided guest_id. If the guest has reservations linked to it, those are all
+        deleted beforehand as well
         :param guest_id: Guest id that is to be deleted
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching guest is found for the deletion
         """
@@ -82,7 +83,11 @@ class GuestService:
         assert guest_id > 0, guest_id
 
         guest = GuestDAO.get(guest_id)
+        linked_reservations = ReservationDAO.get_reservations_for_guest(guest_id)
+
         GuestDAO.begin()
+        for reservation in linked_reservations:
+            ReservationDAO.delete(reservation)
         GuestDAO.delete(guest)
         GuestDAO.commit()
 

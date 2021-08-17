@@ -1,5 +1,6 @@
 import functools
 
+from db.ReservationDAO import ReservationDAO
 from db.RoomDAO import RoomDAO
 from db.entities.Room import Room
 
@@ -74,15 +75,19 @@ class RoomService:
     def delete(room_id: int):
         """
         Deletes a Room
-        TODO: should we look for reservations and delete them beforehand?
-        :param room_id: Room id that is to be deleted
+        :param room_id: Room id that is to be deleted. If the room has reservations linked to it, those are all
+        deleted beforehand as well
         :raises sqlalchemy.orm.exc.NoResultFound: when no matching room is found for the deletion
         """
         assert isinstance(room_id, int), type(room_id)
         assert room_id > 0, room_id
 
         room = RoomDAO.get(room_id)
+        linked_reservations = ReservationDAO.get_reservations_for_guest(room_id)
+
         RoomDAO.begin()
+        for reservation in linked_reservations:
+            ReservationDAO.delete(reservation)
         RoomDAO.delete(room)
         RoomDAO.commit()
 
