@@ -1,5 +1,6 @@
 from typing import Union
 from datetime import datetime
+from dataclasses import dataclass
 
 from sqlalchemy import Column, DateTime, ForeignKey, BigInteger, Integer, Enum
 
@@ -10,10 +11,17 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from utils.DateUtils import DateUtils
 
 
+@dataclass
 class Reservation(Base):
     """
     Reservation SQLAlchemy entity
     """
+    room_id: int
+    guest_id: int
+    start_date: datetime
+    end_date: datetime
+    amount_of_guests: int
+    status: ReservationStatus
 
     def init_fields(self, room_id: int, guest_id: int, start_date: datetime, end_date: datetime, amount_of_guests: int,
                     status: ReservationStatus):
@@ -136,7 +144,7 @@ class Reservation(Base):
         Gets the status of the reservation
         :return: Status enum of the reservation (i.e. ReservationStatus.SCHEDULED)
         """
-        return ReservationStatus(self.__status)
+        return self.__status
 
     @status.setter
     def status(self, status: ReservationStatus):
@@ -173,9 +181,6 @@ class Reservation(Base):
     __amount_of_guests = Column("amount_of_guests", Integer)
 
     __status = Column("status",
-                      Enum(
-                          "SCHEDULED",
-                          "CANCELED",
-                          name="reservation_status_type"),
+                      Enum(ReservationStatus),
                       nullable=False,
                       default="SCHEDULED")
