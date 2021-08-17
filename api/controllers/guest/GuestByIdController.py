@@ -18,12 +18,12 @@ class GuestByIdController(Resource):
         :param guest_id: id of the guest to be fetched
         :return: HTTP Code indicating the result of the action and the fetched resource
         """
+        guest = None
         try:
             guest = GuestService.get_by_id(guest_id)
         except NoResultFound:
-            # TODO: log error
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
-        # TODO: Return actual object and status code in json (marshmallow?)
+
         return jsonify(guest)
 
     def put(self, guest_id: int):
@@ -33,14 +33,15 @@ class GuestByIdController(Resource):
         :return: Updated entity and HTTP Code indicating the result of the action
         """
         self.__validate_put(request.json)
+
+        guest = None
         try:
-            guest = GuestService.update(guest_id, request.json)
-        except NoResultFound as err:
-            # TODO: log error
+            GuestService.update(guest_id, request.json)
+            guest = GuestService.get_by_id(guest_id)
+        except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
-        # TODO: Catch other potential exception types here
-        # TODO: Return actual object and status code in json (marshmallow?)
-        return HttpStatuses.OK.value
+
+        return jsonify(guest)
 
     def delete(self, guest_id: int):
         """
@@ -53,9 +54,9 @@ class GuestByIdController(Resource):
         except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
         except SQLAlchemyError:
-            # TODO: log error
             abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.GENERAL_SERVER_ERROR.value)
-        return HttpStatuses.OK.value
+
+        return "", HttpStatuses.NO_CONTENT.value
 
     def __validate_put(self, update_request: dict):
         """

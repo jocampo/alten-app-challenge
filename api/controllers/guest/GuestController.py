@@ -7,7 +7,7 @@ from api.controllers.guest.GuestFields import GuestFields, ALLOWED_POST_FIELDS, 
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.service.GuestService import GuestService
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 
 
 class GuestController(Resource):
@@ -22,11 +22,10 @@ class GuestController(Resource):
         guests = []
         try:
             guests = GuestService.get_all()
-        except SQLAlchemyError as err:
-            # TODO: log error
+        except SQLAlchemyError:
             abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
-        # TODO: Return actual objects and status code in json (marshmallow?)
-        return jsonify(guests), HttpStatuses.OK.value
+
+        return jsonify(guests)
 
     def post(self):
         """
@@ -34,13 +33,15 @@ class GuestController(Resource):
         :return: HTTP Code indicating the result of the action and the newly created entity
         """
         self.__validate_post(request.json)
+
+        guest = None
         try:
-            guest = GuestService.create(request.json)
-        except SQLAlchemyError as err:
-            # TODO: log error
-            abort(HttpStatuses.INTERNAL_SERVER_ERROR.value, message=ErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE.value)
-        # TODO: Return actual object and status code in json (marshmallow?)
-        return HttpStatuses.OK.value
+            guest_id = GuestService.create(request.json)
+            guest = GuestService.get_by_id(guest_id)
+        except NoResultFound:
+            abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
+
+        return make_response(jsonify(guest), HttpStatuses.CREATED.value)
 
     def __validate_post(self, create_request: dict):
         """
