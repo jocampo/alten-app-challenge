@@ -1,4 +1,5 @@
 from datetime import datetime
+from dataclasses import dataclass
 
 from sqlalchemy.orm import declared_attr
 from sqlalchemy.schema import Column
@@ -7,10 +8,15 @@ from sqlalchemy.types import Integer, DateTime
 from sqlalchemy.ext.hybrid import hybrid_property
 
 
+@dataclass
 class BaseEntity:
     """
     Base Entity to serve as declarative base for other SQLAlchemy entities
     """
+    id: int
+    created_at: datetime
+    updated_at: datetime
+
     @declared_attr
     def __tablename__(cls) -> str:
         """

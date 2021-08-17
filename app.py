@@ -13,6 +13,7 @@ from api.controllers.reservation.ReservationController import ReservationControl
 from api.controllers.room.RoomByIdController import RoomByIdController
 from api.controllers.room.RoomController import RoomController
 from config import DATABASE_URL
+from config.JSONEncoder import CustomJSONEncoder
 from db.ConnectionManager import ConnectionManager
 from utils.heroku import HerokuUtils
 
@@ -24,6 +25,8 @@ else:
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+app.json_encoder = CustomJSONEncoder
+
 api = Api(app)
 heroku = Heroku(app)
 CORS(app, support_credentials=True)
@@ -37,6 +40,7 @@ def index():
     return "Welcome to the Hotel API"
 
 
+# Register routes for the API, binding a controller to each route
 api.add_resource(GuestController, Routes.GUESTS.value)
 api.add_resource(GuestByIdController, Routes.GUESTS_BY_ID.value)
 api.add_resource(RoomController, Routes.ROOMS.value)

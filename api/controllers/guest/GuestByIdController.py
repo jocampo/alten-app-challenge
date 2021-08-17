@@ -24,7 +24,7 @@ class GuestByIdController(Resource):
             # TODO: log error
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
         # TODO: Return actual object and status code in json (marshmallow?)
-        return HttpStatuses.OK.value
+        return jsonify(guest)
 
     def put(self, guest_id: int):
         """

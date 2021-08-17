@@ -1,14 +1,21 @@
 from sqlalchemy import Column, String, Boolean
+from dataclasses import dataclass
 
 from db.entities import Base
 
 from sqlalchemy.ext.hybrid import hybrid_property
 
 
+@dataclass
 class Guest(Base):
     """
     Guest SQLAlchemy entity
     """
+    document: str
+    first_name: str
+    last_name: str
+    is_active: bool
+
     def init_fields(self, document: str, first_name: str, last_name: str, is_active: bool = True):
         """
         Initializes the guest entity with data
