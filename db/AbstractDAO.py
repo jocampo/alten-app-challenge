@@ -53,5 +53,9 @@ class AbstractDAO(ABC):
         AbstractDAO.get_connection().commit()
 
     @staticmethod
+    def flush():
+        AbstractDAO.get_connection().flush()
+
+    @staticmethod
     def get_connection() -> scoped_session:
         return ConnectionManager().get_session()

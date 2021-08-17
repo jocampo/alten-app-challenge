@@ -88,6 +88,7 @@ class GuestService:
         GuestDAO.begin()
         for reservation in linked_reservations:
             ReservationDAO.delete(reservation)
+        GuestDAO.flush()
         GuestDAO.delete(guest)
         GuestDAO.commit()
 

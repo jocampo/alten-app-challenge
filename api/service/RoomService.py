@@ -83,11 +83,12 @@ class RoomService:
         assert room_id > 0, room_id
 
         room = RoomDAO.get(room_id)
-        linked_reservations = ReservationDAO.get_reservations_for_guest(room_id)
+        linked_reservations = ReservationDAO.get_reservations_for_room(room_id)
 
         RoomDAO.begin()
         for reservation in linked_reservations:
             ReservationDAO.delete(reservation)
+        RoomDAO.flush()
         RoomDAO.delete(room)
         RoomDAO.commit()
 
