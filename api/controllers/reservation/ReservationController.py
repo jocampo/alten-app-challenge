@@ -3,6 +3,7 @@ from flask_restful import Resource, abort
 from sqlalchemy.exc import NoResultFound
 
 from api.controllers.reservation.ReservationFields import ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS, ReservationFields
+from api.entities.APIErrors import ReservationError
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.entities.ReservationStatus import ReservationStatus
@@ -37,6 +38,8 @@ class ReservationController(Resource):
         try:
             reservation_id = ReservationService.create(request.json)
             reservation = ReservationService.get_by_id(reservation_id)
+        except ReservationError as res_error:
+            abort(HttpStatuses.BAD_REQUEST.value, message=res_error.args[0])
         except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
 
