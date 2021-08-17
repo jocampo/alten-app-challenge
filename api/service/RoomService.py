@@ -91,4 +91,3 @@ class RoomService:
         RoomDAO.flush()
         RoomDAO.delete(room)
         RoomDAO.commit()
-
