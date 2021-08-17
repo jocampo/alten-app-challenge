@@ -7,7 +7,7 @@ from api.entities.ReservationStatus import ReservationStatus
 from db.entities import Base
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from utils.date_utils import DateUtils
+from utils.DateUtils import DateUtils
 
 
 class Reservation(Base):
