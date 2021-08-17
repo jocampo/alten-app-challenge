@@ -10,7 +10,7 @@ class ErrorMessages(Enum):
     INTERNAL_SERVER_ERROR_MESSAGE = "An error occurred while trying to perform the operation."
 
     """ Resource Not Found Error Message """
-    RESOURCE_NOT_FOUND_ERROR_MESSAGE = "The request resource was not found."
+    RESOURCE_NOT_FOUND_ERROR_MESSAGE = "The requested resource was not found."
 
     """ Empty Body Error Message """
     EMPTY_BODY_ERROR_MESSAGE = "Data was expected in the body of the request, but none was found"
