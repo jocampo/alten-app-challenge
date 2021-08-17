@@ -6,7 +6,9 @@ from api.controllers.reservation.ReservationFields import ALLOWED_PUT_FIELDS, RE
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.entities.ReservationStatus import ReservationStatus
+from api.service.GuestService import GuestService
 from api.service.ReservationService import ReservationService
+from api.service.RoomService import RoomService
 
 
 class ReservationByIdController(Resource):
@@ -86,6 +88,21 @@ class ReservationByIdController(Resource):
                 "FIELDS",
                 ", ".join(missing_required_fields))
 
+        # Validate linked entities beforehand so we can be explicit about what's missing in the error message
+        # should any of them not exist
+        if ReservationFields.GUEST_ID.value in update_request:
+            guest_id = update_request[ReservationFields.GUEST_ID.value]
+            try:
+                GuestService.get_by_id(guest_id)
+            except NoResultFound:
+                error_message = f"Resource Guest with id {guest_id} does not exist. Please provide a valid 'guest_id'"
+
+        if ReservationFields.ROOM_ID.value in update_request:
+            room_id = update_request[ReservationFields.ROOM_ID.value]
+            try:
+                RoomService.get_by_id(room_id)
+            except NoResultFound:
+                error_message = f"Resource Room with id {room_id} does not exist. Please provide a valid 'room_id'"
+
         if error_message:
             abort(HttpStatuses.BAD_REQUEST.value, message=error_message)
-
