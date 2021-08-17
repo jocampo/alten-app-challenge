@@ -29,10 +29,11 @@ class ReservationService:
         return ReservationDAO.get(reservation_id)
 
     @staticmethod
-    def create(create_request: dict):
+    def create(create_request: dict) -> int:
         """
         Creates a reservation based on the specified create_request dict
         :param create_request: dictionary specifying the values for the reservation properties
+        :return id of the newly created resource
         """
         assert isinstance(create_request, dict), type(create_request)
         assert len(create_request.keys()) > 0
@@ -46,6 +47,7 @@ class ReservationService:
         ReservationDAO.begin()
         ReservationDAO.save(reservation)
         ReservationDAO.commit()
+        return reservation.id
 
     @staticmethod
     def update(reservation_id: int, update_request: dict):

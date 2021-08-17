@@ -29,10 +29,11 @@ class RoomService:
         return RoomDAO.get(room_id)
 
     @staticmethod
-    def create(create_request: dict):
+    def create(create_request: dict) -> int:
         """
         Creates a room based on the specified create_request dict
         :param create_request: dictionary specifying the values for the room properties
+        :return id of the newly created resource
         """
         assert isinstance(create_request, dict), type(create_request)
         assert len(create_request.keys()) > 0
@@ -45,6 +46,7 @@ class RoomService:
         RoomDAO.begin()
         RoomDAO.save(room)
         RoomDAO.commit()
+        return room.id
 
     @staticmethod
     def update(room_id: int, update_request: dict):

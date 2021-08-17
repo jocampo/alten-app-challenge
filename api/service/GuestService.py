@@ -29,10 +29,11 @@ class GuestService:
         return GuestDAO.get(guest_id)
 
     @staticmethod
-    def create(create_request: dict):
+    def create(create_request: dict) -> int:
         """
         Creates a guest based on the specified create_request dict
         :param create_request: dictionary specifying the values for the guest properties
+        :return id of the newly created resource
         """
         assert isinstance(create_request, dict), type(create_request)
         assert len(create_request.keys()) > 0
@@ -45,6 +46,7 @@ class GuestService:
         GuestDAO.begin()
         GuestDAO.save(guest)
         GuestDAO.commit()
+        return guest.id
 
     @staticmethod
     def update(guest_id: int, update_request: dict):
