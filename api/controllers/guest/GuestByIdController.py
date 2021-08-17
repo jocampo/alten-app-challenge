@@ -1,6 +1,6 @@
+from flask import jsonify, request
 from flask_restful import Resource, abort
-from sqlalchemy.exc import SQLAlchemyError, NoResultFound
-from flask import request, jsonify
+from sqlalchemy.exc import NoResultFound
 
 from api.controllers.guest.GuestFields import ALLOWED_PUT_FIELDS, REQUIRED_PUT_FIELDS
 from api.entities.ErrorMessages import ErrorMessages

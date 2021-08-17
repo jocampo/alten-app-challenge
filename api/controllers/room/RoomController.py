@@ -1,11 +1,11 @@
+from flask import jsonify, make_response, request
 from flask_restful import Resource, abort
-from sqlalchemy.exc import SQLAlchemyError, NoResultFound
+from sqlalchemy.exc import NoResultFound
 
 from api.controllers.room.RoomFields import ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.service.RoomService import RoomService
-from flask import request, jsonify, make_response
 
 
 class RoomController(Resource):

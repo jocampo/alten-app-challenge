@@ -1,13 +1,11 @@
-import json
-
+from flask import jsonify, make_response, request
 from flask_restful import Resource, abort
-from sqlalchemy.exc import SQLAlchemyError, NoResultFound
+from sqlalchemy.exc import NoResultFound
 
-from api.controllers.guest.GuestFields import GuestFields, ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS
+from api.controllers.guest.GuestFields import ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.service.GuestService import GuestService
-from flask import request, jsonify, make_response
 
 
 class GuestController(Resource):

@@ -1,12 +1,12 @@
+from flask import jsonify, make_response, request
 from flask_restful import Resource, abort
-from sqlalchemy.exc import SQLAlchemyError, NoResultFound
+from sqlalchemy.exc import NoResultFound
 
 from api.controllers.reservation.ReservationFields import ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS, ReservationFields
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.entities.ReservationStatus import ReservationStatus
 from api.service.ReservationService import ReservationService
-from flask import request, jsonify, make_response
 
 
 class ReservationController(Resource):

@@ -1,6 +1,6 @@
+from flask import jsonify, request
 from flask_restful import Resource, abort
-from sqlalchemy.exc import SQLAlchemyError, NoResultFound
-from flask import request, jsonify, make_response
+from sqlalchemy.exc import NoResultFound
 
 from api.controllers.reservation.ReservationFields import ALLOWED_PUT_FIELDS, REQUIRED_PUT_FIELDS, ReservationFields
 from api.entities.ErrorMessages import ErrorMessages
