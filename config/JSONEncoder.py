@@ -1,7 +1,10 @@
 from datetime import datetime, timedelta
+from enum import Enum
 from typing import Any
 
 from flask.json import JSONEncoder
+
+from api.entities.ReservationStatus import ReservationStatus
 
 
 class CustomJSONEncoder(JSONEncoder):
@@ -15,5 +18,7 @@ class CustomJSONEncoder(JSONEncoder):
         elif type(o) == datetime:
             # TODO: Keep TZ info, which we don't need right now
             return o.replace(tzinfo=None).isoformat()
+        elif issubclass(o.__class__, Enum):
+            return o.value
         else:
             return super().default(o)
