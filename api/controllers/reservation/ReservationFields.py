@@ -50,6 +50,8 @@ assert REQUIRED_POST_FIELDS.issubset(ALLOWED_POST_FIELDS)
 
 """ Collection of allowed fields for the PUT operation """
 ALLOWED_PUT_FIELDS = frozenset((
+    ReservationFields.GUEST_ID.value,
+    ReservationFields.ROOM_ID.value,
     ReservationFields.START_DATE.value,
     ReservationFields.END_DATE.value,
     ReservationFields.AMOUNT_OF_GUESTS.value,
