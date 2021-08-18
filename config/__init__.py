@@ -1,6 +1,6 @@
 import subprocess
 
-from utils.heroku import HerokuUtils
+from utils.HerokuUtils import HerokuUtils
 
 # Get the latest Database URL (which heroku cycles periodically) from the Heroku CLI
 DATABASE_URL = subprocess.Popen("heroku config:get DATABASE_URL -a jocampo-alten-app-challenge",

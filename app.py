@@ -18,7 +18,7 @@ from config import DATABASE_URL
 from config.JSONEncoder import CustomJSONEncoder
 from config.SwaggerConfig import SWAGGERUI_BLUEPRINT
 from db.ConnectionManager import ConnectionManager
-from utils.heroku import HerokuUtils
+from utils.HerokuUtils import HerokuUtils
 
 if "DATABASE_URL" in os.environ:
     db_url = HerokuUtils.parse_postgres_dialect(os.environ["DATABASE_URL"])

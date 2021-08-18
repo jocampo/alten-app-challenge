@@ -7,7 +7,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from config import DATABASE_URL
-from utils.heroku import HerokuUtils
+from utils.HerokuUtils import HerokuUtils
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
