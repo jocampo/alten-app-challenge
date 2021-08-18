@@ -54,6 +54,10 @@ class ReservationService:
         for k, v in create_request.items():
             set_field(k, v)
 
+        # Check that start_date and end_date have tz info. Otherwise, reject the request
+        if reservation.start_date.tzinfo is None or reservation.end_date.tzinfo is None:
+            raise ReservationError("Please make sure dates include timezone info")
+
         # Start performing some validations for the reservation
         ReservationService.__validate_reservation_dates(reservation)
         ReservationService.__validate_room_and_guest(reservation)
@@ -83,6 +87,10 @@ class ReservationService:
         set_field = functools.partial(setattr, reservation)
         for k, v in update_request.items():
             set_field(k, v)
+
+        # Check that start_date and end_date have tz info. Otherwise, reject the request
+        if reservation.start_date.tzinfo is None or reservation.end_date.tzinfo is None:
+            raise ReservationError("Please make sure dates include timezone info")
 
         # Start performing some validations for the reservation
         ReservationService.__validate_room_and_guest(reservation)
@@ -162,7 +170,7 @@ class ReservationService:
         with a relevant description of the error so that the caller can take action.
         """
         if not ReservationService.check_room_availability(
-                reservation.guest_id, reservation.start_date, reservation.end_date, reservation.id
+                reservation.room_id, reservation.start_date, reservation.end_date, reservation.id
         ):
             raise ReservationError(
                 f"The room you're attempting to reserve (room_id: {reservation.room_id}) is not available between the "
