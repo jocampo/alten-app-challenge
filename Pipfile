@@ -14,6 +14,7 @@ sqlalchemy = "*"
 flask-sqlalchemy-session = "*"
 flask-swagger-ui = "*"
 pytest = "*"
+flask-testing = "*"
 
 [dev-packages]
 
