@@ -14,9 +14,6 @@ tags:
   description: "CRUD operations for the Room entity"
 - name: "reservations"
   description: "CRUD operations for the Reservation entity"
-schemes:
-- "http"
-- "https"
 paths:
   /guests:
     get:
