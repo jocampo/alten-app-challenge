@@ -25,3 +25,6 @@ class Routes(Enum):
 
     """ API routes pertaining operations with the Reservation entity by id """
     RESERVATIONS_BY_ID = f"{RESERVATIONS}/<int:reservation_id>"
+
+    """ Custom method to quickly check the availability of a room """
+    ROOM_AVAILABILITY = f"{API_BASE}/check_room_availability"

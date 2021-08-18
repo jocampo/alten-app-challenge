@@ -7,6 +7,7 @@ from flask_restful import Api
 from flask_sqlalchemy_session import flask_scoped_session
 
 from api.controllers.Routes import Routes
+from api.controllers.custom.RoomAvailabilityController import RoomAvailabilityController
 from api.controllers.guest.GuestByIdController import GuestByIdController
 from api.controllers.guest.GuestController import GuestController
 from api.controllers.reservation.ReservationByIdController import ReservationByIdController
@@ -48,6 +49,7 @@ api.add_resource(RoomController, Routes.ROOMS.value)
 api.add_resource(RoomByIdController, Routes.ROOMS_BY_ID.value)
 api.add_resource(ReservationController, Routes.RESERVATIONS.value)
 api.add_resource(ReservationByIdController, Routes.RESERVATIONS_BY_ID.value)
+api.add_resource(RoomAvailabilityController, Routes.ROOM_AVAILABILITY.value)
 
 if __name__ == "__main__":
     app.run()

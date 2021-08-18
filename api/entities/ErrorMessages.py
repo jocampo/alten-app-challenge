@@ -20,3 +20,6 @@ class ErrorMessages(Enum):
 
     """ Error message in case a request is missing required fields """
     REQUEST_MISSING_REQUIRED_FIELDS_ERROR_MESSAGE = "The following fields were missing from the request body: {FIELDS}"
+
+    """ The provided datetime fields do not contain TZ information """
+    TIMEZONE_MISSING_FROM_DATE_FIELDS = "Please make sure dates include timezone info"

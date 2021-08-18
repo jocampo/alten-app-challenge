@@ -5,6 +5,7 @@ from pytz import utc
 
 from api.controllers.reservation.ReservationFields import ReservationFields
 from api.entities.APIErrors import ReservationError
+from api.entities.ErrorMessages import ErrorMessages
 from api.entities.ReservationStatus import ReservationStatus
 from api.service.GuestService import GuestService
 from api.service.RoomService import RoomService
@@ -56,7 +57,7 @@ class ReservationService:
 
         # Check that start_date and end_date have tz info. Otherwise, reject the request
         if reservation.start_date.tzinfo is None or reservation.end_date.tzinfo is None:
-            raise ReservationError("Please make sure dates include timezone info")
+            raise ReservationError(ErrorMessages.TIMEZONE_MISSING_FROM_DATE_FIELDS.value)
 
         # Start performing some validations for the reservation
         ReservationService.__validate_reservation_dates(reservation)
@@ -90,7 +91,7 @@ class ReservationService:
 
         # Check that start_date and end_date have tz info. Otherwise, reject the request
         if reservation.start_date.tzinfo is None or reservation.end_date.tzinfo is None:
-            raise ReservationError("Please make sure dates include timezone info")
+            raise ReservationError(ErrorMessages.TIMEZONE_MISSING_FROM_DATE_FIELDS.value)
 
         # Start performing some validations for the reservation
         ReservationService.__validate_room_and_guest(reservation)
