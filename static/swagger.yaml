@@ -31,7 +31,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Guest"
+              $ref: "#/definitions/GuestResponse"
     post:
       tags:
       - "guests"
@@ -46,7 +46,7 @@ paths:
         description: "Guest object that needs to be added to the hotel"
         required: true
         schema:
-          $ref: "#/definitions/Guest"
+          $ref: "#/definitions/GuestRequest"
       responses:
         "400":
           description: "Bad request (the message will indicate what's wrong with it)"
@@ -55,7 +55,7 @@ paths:
         "201":
           description: "Success, the following entity was created"
           schema:
-            $ref: "#/definitions/Guest"
+            $ref: "#/definitions/GuestResponse"
   /guests/{guest_id}:
     get:
       tags:
@@ -76,7 +76,7 @@ paths:
         "200":
           description: "Success"
           schema:
-            $ref: "#/definitions/Guest"
+            $ref: "#/definitions/GuestResponse"
     put:
       tags:
       - "guests"
@@ -97,7 +97,7 @@ paths:
         description: "Fields we want to update in the Guest resource"
         required: true
         schema:
-          $ref: "#/definitions/Guest"
+          $ref: "#/definitions/GuestRequest"
       responses:
         "400":
           description: "Bad request (the message will indicate what's wrong with it)"
@@ -108,7 +108,7 @@ paths:
         "200":
           description: "Success, the resource was updated. The complete upated resource is attached"
           schema:
-            $ref: "#/definitions/Guest"
+            $ref: "#/definitions/GuestResponse"
     delete:
       tags:
       - "guests"
@@ -141,7 +141,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Room"
+              $ref: "#/definitions/RoomResponse"
     post:
       tags:
       - "rooms"
@@ -156,7 +156,7 @@ paths:
         description: "Room object that needs to be added to the hotel"
         required: true
         schema:
-          $ref: "#/definitions/Room"
+          $ref: "#/definitions/RoomRequest"
       responses:
         "400":
           description: "Bad request (the message will indicate what's wrong with it)"
@@ -165,7 +165,7 @@ paths:
         "201":
           description: "Success, the following entity was created"
           schema:
-            $ref: "#/definitions/Room"
+            $ref: "#/definitions/RoomResponse"
   /rooms/{room_id}:
     get:
       tags:
@@ -186,7 +186,7 @@ paths:
         "200":
           description: "Success"
           schema:
-            $ref: "#/definitions/Room"
+            $ref: "#/definitions/RoomResponse"
     put:
       tags:
       - "rooms"
@@ -207,7 +207,7 @@ paths:
         description: "Fields we want to update in the Room resource"
         required: true
         schema:
-          $ref: "#/definitions/Room"
+          $ref: "#/definitions/RoomRequest"
       responses:
         "400":
           description: "Bad request (the message will indicate what's wrong with it)"
@@ -218,7 +218,7 @@ paths:
         "200":
           description: "Success, the resource was updated. The complete upated resource is attached"
           schema:
-            $ref: "#/definitions/Room"
+            $ref: "#/definitions/RoomResponse"
     delete:
       tags:
       - "rooms"
@@ -250,7 +250,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Reservation"
+              $ref: "#/definitions/ReservationResponse"
     post:
       tags:
       - "reservations"
@@ -265,7 +265,7 @@ paths:
         description: "Reservation object that needs to be added to the hotel"
         required: true
         schema:
-          $ref: "#/definitions/Reservation"
+          $ref: "#/definitions/ReservationRequest"
       responses:
         "400":
           description: "Bad request (the message will indicate what's wrong with it)"
@@ -274,7 +274,7 @@ paths:
         "201":
           description: "Success, the following entity was created"
           schema:
-            $ref: "#/definitions/Reservation"
+            $ref: "#/definitions/ReservationResponse"
   /reservations/{reservation_id}:
     get:
       tags:
@@ -295,7 +295,7 @@ paths:
         "200":
           description: "Success"
           schema:
-            $ref: "#/definitions/Reservation"
+            $ref: "#/definitions/ReservationResponse"
     put:
       tags:
       - "reservations"
@@ -316,7 +316,7 @@ paths:
         description: "Fields we want to update in the Reservation resource"
         required: true
         schema:
-          $ref: "#/definitions/Reservation"
+          $ref: "#/definitions/ReservationRequest"
       responses:
         "400":
           description: "Bad request (the message will indicate what's wrong with it)"
@@ -327,7 +327,7 @@ paths:
         "200":
           description: "Success, the resource was updated. The complete upated resource is attached"
           schema:
-            $ref: "#/definitions/Reservation"
+            $ref: "#/definitions/ReservationResponse"
     delete:
       tags:
       - "reservations"
@@ -346,8 +346,53 @@ paths:
           description: "The specified resource was not found"
         "204":
           description: "Success. No body returned for the response"
+  /check_room_availability:
+    post:
+      tags:
+      - "rooms"
+      summary: "Checks the availability of a room in the hotel for a given date range"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Request object to check for room availability"
+        required: true
+        schema:
+          $ref: "#/definitions/CheckRoomAvailabilityRequest"
+      responses:
+        "400":
+          description: "Bad request (the message will indicate what's wrong with it)"
+          schema:
+            $ref: "#/definitions/ErrorMessage"
+        "404":
+          description: "The specified resource was not found"
+        "200":
+          description: "Success"
+          schema:
+            type: "boolean"
 definitions:
-  Guest:
+  GuestRequest:
+    type: "object"
+    required:
+    - "document"
+    - "first_name"
+    - "last_name"
+    properties:
+      document:
+        type: "string"
+        example: "12345678"
+      first_name:
+        type: "string"
+        example: "Jorge"
+      last_name:
+        type: "string"
+        example: "Ocampo"
+      is_active:
+        type: "boolean"
+  GuestResponse:
     type: "object"
     required:
     - "document"
@@ -374,7 +419,20 @@ definitions:
       updated_at:
         type: "string"
         format: "date-time"
-  Room:
+  RoomRequest:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+        example: "Suite 203"
+      capacity:
+        type: "integer"
+        format: "int32"
+      is_active:
+        type: "boolean"
+  RoomResponse:
     type: "object"
     required:
     - "name"
@@ -396,7 +454,36 @@ definitions:
       updated_at:
         type: "string"
         format: "date-time"
-  Reservation:
+  ReservationRequest:
+    type: "object"
+    required:
+    - "room_id"
+    - "guest_id"
+    - "start_date"
+    - "end_date"
+    properties:
+      room_id:
+        type: "integer"
+        format: "int64"
+      guest_id:
+        type: "integer"
+        format: "int64"
+      start_date:
+        type: "string"
+        format: "date-time"
+      end_date:
+        type: "string"
+        format: "date-time"
+      amount_of_guests:
+        type: "integer"
+        format: "int32"
+      status:
+        type: "string"
+        description: "Reservation Status"
+        enum:
+        - "SCHEDULED"
+        - "CANCELED"
+  ReservationResponse:
     type: "object"
     required:
     - "room_id"
@@ -432,6 +519,22 @@ definitions:
         type: "string"
         format: "date-time"
       updated_at:
+        type: "string"
+        format: "date-time"
+  CheckRoomAvailabilityRequest:
+    type: "object"
+    required:
+    - "room_id"
+    - "start_date"
+    - "end_date"
+    properties:
+      room_id:
+        type: "integer"
+        format: "int64"
+      start_date:
+        type: "string"
+        format: "date-time"
+      end_date:
         type: "string"
         format: "date-time"
   ErrorMessage:
