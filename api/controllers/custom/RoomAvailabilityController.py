@@ -30,7 +30,7 @@ class RoomAvailabilityController(Resource):
 
         room_id = request.json[CustomFields.ROOM_ID.value]
         try:
-            RoomService.delete(room_id)
+            RoomService.get_by_id(room_id)
         except NoResultFound:
             abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
 
