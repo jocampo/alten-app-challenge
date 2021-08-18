@@ -1,6 +1,8 @@
 import functools
 from datetime import datetime
 
+from pytz import utc
+
 from api.controllers.reservation.ReservationFields import ReservationFields
 from api.entities.APIErrors import ReservationError
 from api.entities.ReservationStatus import ReservationStatus
@@ -221,7 +223,7 @@ class ReservationService:
             booking_error_message = f"Your reservation must be at least " \
                                     f"{ReservationService.__MIN_STAY_DAYS} day(s) long"
 
-        time_until_reservation_starts = reservation.start_date - datetime.now()
+        time_until_reservation_starts = reservation.start_date - datetime.now(utc)
         # Validate that the reservation starts in at least X days
         if time_until_reservation_starts.days < ReservationService.__MIN_DAYS_BEFORE_RESERVATION_START:
             booking_error_message = f"Your reservation must start at least " \

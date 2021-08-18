@@ -14,8 +14,7 @@ class CustomJSONEncoder(JSONEncoder):
         if type(o) == timedelta:
             return str(o)
         elif type(o) == datetime:
-            # TODO: Keep TZ info, which we don't need right now
-            return o.replace(tzinfo=None).isoformat()
+            return o.isoformat()
         elif issubclass(o.__class__, Enum):
             return o.value
         else:
