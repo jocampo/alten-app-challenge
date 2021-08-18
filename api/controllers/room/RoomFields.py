@@ -38,7 +38,6 @@ assert REQUIRED_POST_FIELDS.issubset(ALLOWED_POST_FIELDS)
 
 """ Collection of allowed fields for the PUT operation """
 ALLOWED_PUT_FIELDS = frozenset((
-    RoomFields.ID.value,
     RoomFields.NAME.value,
     RoomFields.CAPACITY.value,
     RoomFields.IS_ACTIVE.value

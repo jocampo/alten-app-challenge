@@ -43,7 +43,6 @@ assert REQUIRED_POST_FIELDS.issubset(ALLOWED_POST_FIELDS)
 
 """ Collection of allowed fields for the PUT operation """
 ALLOWED_PUT_FIELDS = frozenset((
-    GuestFields.ID.value,
     GuestFields.DOCUMENT.value,
     GuestFields.FIRST_NAME.value,
     GuestFields.LAST_NAME.value,
