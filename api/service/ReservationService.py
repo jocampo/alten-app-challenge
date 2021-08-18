@@ -227,7 +227,7 @@ class ReservationService:
             booking_error_message = f"Your reservation exceeds the max allowed stay duration of " \
                                     f"{ReservationService.__MAX_STAY_DAYS} day(s)"
         # Validate that the stay isn't shorter than X days
-        if stay_duration.days <= ReservationService.__MIN_STAY_DAYS:
+        if stay_duration.days < ReservationService.__MIN_STAY_DAYS:
             booking_error_message = f"Your reservation must be at least " \
                                     f"{ReservationService.__MIN_STAY_DAYS} day(s) long"
 
