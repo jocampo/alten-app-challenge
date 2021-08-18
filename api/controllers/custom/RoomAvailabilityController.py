@@ -34,7 +34,7 @@ class RoomAvailabilityController(Resource):
     def __validate_post(self, post_request: dict):
         """
         Performs validations on the POST request and fails the request if its data has issues
-        :param request: POST request data
+        :param post_request: POST request data
         """
         error_message = ""
 
