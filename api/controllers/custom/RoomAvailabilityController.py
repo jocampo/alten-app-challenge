@@ -1,11 +1,12 @@
 from flask import jsonify, make_response, request
 from flask_restful import Resource, abort
+from sqlalchemy.exc import NoResultFound
 
-from api.controllers.custom.CustomFields import CustomFields
-from api.controllers.custom.CustomFields import ALLOWED_POST_FIELDS, REQUIRED_POST_FIELDS
+from api.controllers.custom.CustomFields import ALLOWED_POST_FIELDS, CustomFields, REQUIRED_POST_FIELDS
 from api.entities.ErrorMessages import ErrorMessages
 from api.entities.HttpStatuses import HttpStatuses
 from api.service.ReservationService import ReservationService
+from api.service.RoomService import RoomService
 from utils.DateUtils import DateUtils
 
 
@@ -28,6 +29,11 @@ class RoomAvailabilityController(Resource):
             abort(HttpStatuses.BAD_REQUEST.value, message=ErrorMessages.TIMEZONE_MISSING_FROM_DATE_FIELDS.value)
 
         room_id = request.json[CustomFields.ROOM_ID.value]
+        try:
+            RoomService.delete(room_id)
+        except NoResultFound:
+            abort(HttpStatuses.NOT_FOUND.value, message=ErrorMessages.RESOURCE_NOT_FOUND_ERROR_MESSAGE.value)
+
         is_room_available = ReservationService.check_room_availability(room_id, start_date, end_date)
         return make_response(jsonify(is_room_available), HttpStatuses.OK.value)
 
