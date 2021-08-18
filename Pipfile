@@ -13,6 +13,7 @@ gunicorn = "*"
 sqlalchemy = "*"
 flask-sqlalchemy-session = "*"
 flask-swagger-ui = "*"
+pytest = "*"
 
 [dev-packages]
 
