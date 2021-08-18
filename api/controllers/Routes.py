@@ -28,3 +28,9 @@ class Routes(Enum):
 
     """ Custom method to quickly check the availability of a room """
     ROOM_AVAILABILITY = f"{API_BASE}/check_room_availability"
+
+    """ URL for swagger UI """
+    SWAGGER = "/swagger"
+
+    """ URL for swagger config file """
+    SWAGGER_CONFIG = "/static/swagger.yaml"

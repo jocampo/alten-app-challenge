@@ -16,6 +16,7 @@ from api.controllers.room.RoomByIdController import RoomByIdController
 from api.controllers.room.RoomController import RoomController
 from config import DATABASE_URL
 from config.JSONEncoder import CustomJSONEncoder
+from config.SwaggerConfig import SWAGGERUI_BLUEPRINT
 from db.ConnectionManager import ConnectionManager
 from utils.heroku import HerokuUtils
 
@@ -28,6 +29,7 @@ else:
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.json_encoder = CustomJSONEncoder
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=Routes.SWAGGER.value)
 
 api = Api(app)
 heroku = Heroku(app)
