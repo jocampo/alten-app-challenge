@@ -12,6 +12,7 @@ flask-heroku = "*"
 gunicorn = "*"
 sqlalchemy = "*"
 flask-sqlalchemy-session = "*"
+flask-swagger-ui = "*"
 
 [dev-packages]
 
