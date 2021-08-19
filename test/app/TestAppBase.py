@@ -6,19 +6,19 @@ from alembic.config import Config
 from flask_testing import TestCase
 
 from app import create_app
+from db.AbstractDAO import AbstractDAO
 
 
+@mock.patch.dict(os.environ, {"DATABASE_URL": "sqlite://"})
 class TestAppBase(TestCase):
 
-    @mock.patch.dict(os.environ, {"DATABASE_URL": "sqlite:///:memory:"})
     def create_app(self):
         return create_app(True)
 
-    @mock.patch.dict(os.environ, {"DATABASE_URL": "sqlite:///:memory:"})
     def setUp(self):
         self.__alembic_cfg = Config("alembic.ini")
         upgrade(self.__alembic_cfg, "head")
 
-    @mock.patch.dict(os.environ, {"DATABASE_URL": "sqlite:///:memory:"})
     def tearDown(self):
+        AbstractDAO.get_connection().remove()
         downgrade(self.__alembic_cfg, "base")
