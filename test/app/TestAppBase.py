@@ -8,6 +8,8 @@ from config.CreateApp import create_app
 from db.AbstractDAO import AbstractDAO
 
 MOCK_DATABASE_URL = "sqlite://:memory:"
+
+
 @mock.patch.dict("os.environ", {"DATABASE_URL": MOCK_DATABASE_URL})
 class TestAppBase(TestCase):
     """
