@@ -1,0 +1,2 @@
+# Rename this file into "conf.yaml" in order to be able to run all tests
+test_database_url: <CHANGE_ME>
