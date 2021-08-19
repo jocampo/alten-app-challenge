@@ -412,9 +412,11 @@ definitions:
       created_at:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
       updated_at:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
   RoomRequest:
     type: "object"
     required:
@@ -426,6 +428,7 @@ definitions:
       capacity:
         type: "integer"
         format: "int32"
+        example: 1
       is_active:
         type: "boolean"
   RoomResponse:
@@ -436,6 +439,7 @@ definitions:
       id:
         type: "integer"
         format: "int64"
+        example: 1
       name:
         type: "string"
         example: "Suite 203"
@@ -447,9 +451,11 @@ definitions:
       created_at:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
       updated_at:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
   ReservationRequest:
     type: "object"
     required:
@@ -461,18 +467,23 @@ definitions:
       room_id:
         type: "integer"
         format: "int64"
+        example: 1
       guest_id:
         type: "integer"
         format: "int64"
+        example: 1
       start_date:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
       end_date:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
       amount_of_guests:
         type: "integer"
         format: "int32"
+        example: 1
       status:
         type: "string"
         description: "Reservation Status"
@@ -490,21 +501,27 @@ definitions:
       id:
         type: "integer"
         format: "int64"
+        example: 1
       room_id:
         type: "integer"
         format: "int64"
+        example: 1
       guest_id:
         type: "integer"
         format: "int64"
+        example: 1
       start_date:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
       end_date:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
       amount_of_guests:
         type: "integer"
         format: "int32"
+        example: 1
       status:
         type: "string"
         description: "Reservation Status"
@@ -514,9 +531,11 @@ definitions:
       created_at:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
       updated_at:
         type: "string"
         format: "date-time"
+        example: "2021-08-30T00:00:00.343959+00:00"
   CheckRoomAvailabilityRequest:
     type: "object"
     required:
@@ -527,6 +546,7 @@ definitions:
       room_id:
         type: "integer"
         format: "int64"
+        example: 1
       start_date:
         type: "string"
         format: "date-time"
