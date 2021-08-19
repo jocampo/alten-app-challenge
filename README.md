@@ -116,7 +116,7 @@ Lastly, we use the free tier of Heroku Postgres for our Heroku app.
     - A separate, serverless function can be implemented to measure the response time of the app, by making a simple request to the app.
     This function could be invoked every minute and have thresholds to alert the IT department if the response time is higher than X ms.
 - Containerize this application, and have a load balancer in front of the traffic. Then, we can spin up as many as needed in order to scale if the load becomes too large for the existing ones.
-- If the previous step is implemented, then the bottleneck could be moved to the database, so an option there would be to replicate and have more instances. This would give us redundancy in case any one of the database servers starts having issues. A very important thing here would be to set up the replication correctly to ensure that the data is consistent across all 3.
+- If the previous step is implemented, then the bottleneck could be moved to the database, so an option there would be to replicate and have more instances. This would give us redundancy in case any one of the database servers starts having issues. A very important thing here would be to set up the replication correctly to ensure that the data is consistent across all of them.
 - Set up a cache for resources that should not mutate so often (Guests, Rooms). Existing guests/rooms should not change repeatedly, so we could cache them (organically, as they're queried by requests). And update the cache when a resource is updated.
 
 The combination of these ideas could help the IT department maintain high uptime of the API.
