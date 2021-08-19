@@ -106,13 +106,21 @@ Additionally, we use [Green Unicorn](https://gunicorn.org/) as a WSGI server to 
 Lastly, we use the free tier of Heroku Postgres for our Heroku app.
 
 ## Ideas in order to achieve 99.99% uptime
-"4 nines" means a bit less than 1 hour of downtime per year. In order to achieve that, the following changes would need to be implemented:
+
+![uptime.png](/readme_files/uptime.png)
+
+99.99% ("4 nines") uptime means a bit less than 1 hour of downtime per year. In order to achieve that, the following changes would need to be implemented:
  - Set up monitoring for the uptime and performance of the app, as well as alerts of the resource availability of the web and database servers. This would allow the IT department to preemptively tackle issues such as disk-space running out or server's memory being at full capacity for a long period of time.
     - A separate, serverless function can be implemented to measure the response time of the app, by making a simple request to the app.
-    We could invoke this function every minute and create thresholds to alert the IT department if the response time is higher than X ms.
-- TODO: add more here
+    This function could be invoked every minute and have thresholds to alert the IT department if the response time is higher than X ms.
+- Containerize this application, and have a load balancer in front of the traffic. Then, we can spin up as many as needed in order to scale if the load becomes too large for the existing ones.
+- If the previous step is implemented, then the bottleneck could be moved to the database, so an option there would be to replicate and have more instances. This would give us redundancy in case any one of the database servers starts having issues. A very important thing here would be to set up the replication correctly to ensure that the data is consistent across all 3.
+- Set up a cache for resources that should not mutate so often (Guests, Rooms). Existing guests/rooms should not change repeatedly, so we could cache them (organically, as they're queried by requests). And update the cache when a resource is updated.
+
+The combination of these ideas could help the IT department maintain high uptime of the API.
 
 ## Tech Used
+- [Python](https://www.python.org/) (>= 3.6+)
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/) (and several add-ons to make things easier)
 - [SQLAlchemy](https://www.sqlalchemy.org/) (+ [psycopg2](https://pypi.org/project/psycopg2/))
 - [Alembic](https://alembic.sqlalchemy.org/en/latest/)
@@ -130,3 +138,4 @@ The following steps (if time was not a constraint) for the app would be:
 - Add monitoring to the app.
 - Enforce code format with [Black](https://github.com/psf/black).
 - Adding a cache layer so that we don't hit the DB every time. Updating it as needed
+- Add more validations to the API input and handle these with comprehensive error messages so that the user can always know what went wrong and how to fix it (if the error is in the input)
