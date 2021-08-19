@@ -61,6 +61,7 @@ def create_app(is_testing_context: bool = False):
     return app
 
 
+app = create_app()
+
 if __name__ == "__main__":
-    app = create_app()
     app.run()
