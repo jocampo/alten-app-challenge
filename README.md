@@ -7,6 +7,9 @@ You can visit the hosted version (which auto-deploys on each push) [here](https:
 
 - [Approach](#approach)
 - [Installation](#installation)
+- [Deployment](#deployment)
+- [Tech Used](#tech-used)
+- [Next Steps](#next-steps)
 
 ## Approach
 
@@ -40,7 +43,7 @@ Heroku cycles this connection string periodically, so it's necessary to fetch th
 it on a config file.
 
 In order to have your own Heroku Postgres instance, [create an app on heroku](https://devcenter.heroku.com/articles/creating-apps)
-and then follow [these steps](https://devcenter.heroku.com/articles/heroku-postgresql).
+and then follow [these steps](https://devcenter.heroku.com/articles/heroku-postgresql), you can always choose a free plan here.
 
 Remember, you'll need to install the `Heroku CLI` if you want to go this route. You can find
 a guide [here](https://devcenter.heroku.com/articles/heroku-cli).
@@ -59,7 +62,7 @@ I have set up database migrators through [Alembic](https://alembic.sqlalchemy.or
 
 These migrators handle the DDL and create the tables that the app needs.
 
-In order to run all migrators, simply type:
+3. In order to run all migrators, simply type:
 ```sh
 alembic upgrade head
 ```
@@ -82,11 +85,25 @@ with the desired changes. (Make sure to add both an implementation for `upgrade`
 you need to revert a change in the future).
 
 ### Starting the Flask app
-You're almost there! now you need to type the following to start the server. From the project root, type
+4. You're almost there! now you need to type the following to start the server. From the project root, type
 the following:
 ```sh
 flask run
 ```
 Flask uses the `5000` port by default, so you should be able to open the url: `http://127.0.0.1:5000/`
 and see something similar to this:
+
 ![local.png](/readme_files/local.png)
+
+## Deployment
+
+This app is currently configured to auto-deploy on a Heroku app whenever a push is made to the `main` branch of this git repo.
+
+Whenever a deployment happens, all the missing migrators are executed (if any). This ensures that the database isn't out of sync with the app models.
+
+Additionally, we use [Green Unicorn](https://gunicorn.org/) as a WSGI server to our Flask app in our rudimentary production environment. We need this interface in order boot up multiple worker instances of our app(thus being able to handle more requests at a time).
+
+Lastly, we use the free tier of Heroku Postgres for our Heroku app.
+
+
+## Tech Used
