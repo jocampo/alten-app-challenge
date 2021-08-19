@@ -1,5 +1,4 @@
 # Alten App Challenge
------------------------
 This repository holds my solution for the Alten App Challenge.
 
 You can visit the hosted version (which auto-deploys on each push) [here](https://jocampo-alten-app-challenge.herokuapp.com/).
@@ -20,7 +19,7 @@ includes a RESTful API with 3 resources:
 Each one of these has the usual CRUD operations (following the usual routing for each operation).
 For a more complete reference, please check out the [Swagger UI page](https://jocampo-alten-app-challenge.herokuapp.com/swagger).
 
-This allows the users to create users, rooms and assign them to a reservation.
+This allows the end users to create users, rooms and assign them to a reservation.
 
 An additional route exists in order to check the availability of a room without necessarily creating a reservation (which also performs this check).
 - Check Room Availability -> `(/api/v1/check_room_availability)`
