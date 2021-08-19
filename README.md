@@ -105,5 +105,28 @@ Additionally, we use [Green Unicorn](https://gunicorn.org/) as a WSGI server to 
 
 Lastly, we use the free tier of Heroku Postgres for our Heroku app.
 
+## Ideas in order to achieve 99.99% uptime
+"4 nines" means a bit less than 1 hour of downtime per year. In order to achieve that, the following changes would need to be implemented:
+ - Set up monitoring for the uptime and performance of the app, as well as alerts of the resource availability of the web and database servers. This would allow the IT department to preemptively tackle issues such as disk-space running out or server's memory being at full capacity for a long period of time.
+    - A separate, serverless function can be implemented to measure the response time of the app, by making a simple request to the app.
+    We could invoke this function every minute and create thresholds to alert the IT department if the response time is higher than X ms.
+- TODO: add more here
 
 ## Tech Used
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/) (and several add-ons to make things easier)
+- [SQLAlchemy](https://www.sqlalchemy.org/) (+ [psycopg2](https://pypi.org/project/psycopg2/))
+- [Alembic](https://alembic.sqlalchemy.org/en/latest/)
+- [Gunicorn](https://gunicorn.org/)
+- [Pytest](https://docs.pytest.org/en/6.2.x/)
+- [Heroku](https://www.heroku.com)
+
+## Next Steps
+The following steps (if time was not a constraint) for the app would be:
+- Increase unit test coverage (right now only a couple of components per layer have been unit tested).
+- Integrate the unit tests into a Continous Integration environment.
+- Only auto-deploy to Heroku if the unit tests pass in the CI.
+- For collaboration, Heroku can be leveraged to deploy branches in PRs, which would be useful for reviewers.
+- Add logging to the app.
+- Add monitoring to the app.
+- Enforce code format with [Black](https://github.com/psf/black).
+- Adding a cache layer so that we don't hit the DB every time. Updating it as needed
