@@ -8,6 +8,8 @@ You can visit the hosted version (which auto-deploys on each push) [here](https:
 - [Approach](#approach)
 - [Installation](#installation)
 - [Deployment](#deployment)
+- [99% uptime](#ideas-in-order-to-achieve-9999-uptime)
+- [Running the tests](#running-the-tests)
 - [Tech Used](#tech-used)
 - [Next Steps](#next-steps)
 
@@ -118,6 +120,20 @@ Lastly, we use the free tier of Heroku Postgres for our Heroku app.
 - Set up a cache for resources that should not mutate so often (Guests, Rooms). Existing guests/rooms should not change repeatedly, so we could cache them (organically, as they're queried by requests). And update the cache when a resource is updated.
 
 The combination of these ideas could help the IT department maintain high uptime of the API.
+
+## Running the Tests
+Because of the time, only a few unit tests have been implemented, providing small coverage for all of the important layers.
+
+1. In order to run the tests, first you need to copy the `/test/config/conf.yaml.TEMPLATE` and name it `/test/config/conf.yaml`.
+Then, replace the value inside that says `<CHANGE_ME>` with the DB URL that will be used for the tests.
+This can be a separate, local, Postgres db instance, for example. The format for this value is the usual:
+`postgresql://user:password@host:port/db_name`
+
+2. Then, you can run the tests with pytest
+
+```sh
+python -m pytest
+```
 
 ## Tech Used
 - [Python](https://www.python.org/) (>= 3.6+)
