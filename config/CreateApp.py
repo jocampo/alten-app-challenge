@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 from flask_heroku import Heroku
 from flask_restful import Api
@@ -20,7 +20,7 @@ def create_app(is_testing_context: bool = False):
         os.environ["DATABASE_URL"] = DATABASE_URL
         db_url = DATABASE_URL
 
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder="../templates", static_folder="../static")
     app.url_map.strict_slashes = False
     app.json_encoder = CustomJSONEncoder
 
@@ -39,7 +39,7 @@ def create_app(is_testing_context: bool = False):
 
     @app.route("/")
     def index():
-        return "Welcome to the Hotel API"
+        return render_template("index.html")
 
     # Register routes for the API, binding a controller to each route
     from api.controllers.custom.RoomAvailabilityController import RoomAvailabilityController
